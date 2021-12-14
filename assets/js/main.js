@@ -199,6 +199,7 @@ function doit() {
         let description = $('#description').val();
         let reason = $('#reason').val();
         let note = $('#note').val();
+
     }
 }
 var _doit = new doit();

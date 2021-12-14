@@ -7,22 +7,30 @@ function doit() {
             type: "post",
             url: "./be/getInfoVin.php",
             data: {
+<<<<<<< HEAD
                 vincode: vinCode,
 
+=======
+                vincode: vinCode
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
             },
             dataType: "json",
             success: function(result) {
 
                 if (result.code == 200) {
                     console.log(result);
+<<<<<<< HEAD
                     let time = result.time;
                     let shop_ = result.shop;
                     let inf4M = result.if4M;
                     let tinhhuong = result.tinhhuong;
+=======
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                     $('#contractNo').val(result.contractNo);
                     $('#lot').val(result.lot);
                     $('#bodyType').val(result.bodyType);
                     $('#vincode').val(result.vincode);
+<<<<<<< HEAD
 
                     $('#timeError option').remove();
                     $('#timeError').append('<option></option>');
@@ -50,6 +58,8 @@ function doit() {
 
                         $('#tinhhuong').append('<option>' + tinhhuong[i] + '</option>');
                     }
+=======
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                 } else if (result.code == 201)
                     alert("Lỗi lấy thông tin số VIN");
                 else if (result.code == 202) alert("Số VIN không đủ. Vui lòng nhập 8 kí tự cuối");
@@ -76,6 +86,7 @@ function doit() {
             success: function(result) {
                 console.log(result);
                 if (result.code == 200) {
+<<<<<<< HEAD
 
                     let chuyen_ = result.xuong;
                     let to_ = result.to;
@@ -83,14 +94,35 @@ function doit() {
                     if (shop != "" && xuong == "") {
                         $('#errorChuyen option').remove();
                         $('#errorChuyen').append('<option> </option>');
+=======
+                    let time = result.time;
+                    let shop_ = result.shop;
+                    let chuyen_ = result.xuong;
+                    let to_ = result.to;
+                    for (let i = 0; i < time.length; i++) {
+                        $('#timeError').append('<option>' + time[i] + '</option>');
+                        $('#timeProduct').append('<option>' + time[i] + '</option>');
+
+                    }
+                    for (let i = 0; i < shop_.length; i++) {
+                        $('#errorShop').append('<option>' + shop_[i] + '</option>');
+                    }
+                    if (shop != "") {
+                        $('#errorChuyen option').remove();
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                         for (let i = 0; i < chuyen_.length; i++) {
                             $('#errorChuyen').append('<option>' + chuyen_[i] + '</option>');
                         }
 
                     }
+<<<<<<< HEAD
                     if (shop != "" && xuong != "") {
                         $('#errorTo option').remove();
                         $('#errorTo').append('<option> </option>')
+=======
+                    if (xuong != "") {
+                        $('#errorTo option').remove();
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                         for (let i = 0; i < to_.length; i++) {
                             $('#errorTo').append('<option>' + to_[i] + '</option>')
                         }
@@ -129,6 +161,7 @@ function doit() {
             }
         })
     }
+<<<<<<< HEAD
 
     this.saveimg = () => {
         let file1 = $('#imgInp')[0].files[0];
@@ -201,5 +234,7 @@ function doit() {
         let note = $('#note').val();
 
     }
+=======
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 }
 var _doit = new doit();

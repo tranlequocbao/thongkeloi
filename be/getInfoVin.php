@@ -1,5 +1,6 @@
 <?php
 include '../vendor/connect.php';
+<<<<<<< HEAD
 $vinCode = $_POST['vincode'];
 $vinCompl = "";
 
@@ -52,3 +53,30 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 }
 echo json_encode(['code' => 200, 'lot' => $lot, 'contractNo' => $contractNo, 'bodyType' => $bodyType, 'vincode' => $vincode_, 'time' => $time, 'shop' => $shop,'if4M'=>$inf4M,'tinhhuong'=>$tinhuong]);
 return;
+=======
+$vinCode=$_POST['vincode'];
+$vinCompl="";
+
+if($vinCode=="")return;
+
+if(strlen($vinCode)<8){
+    echo json_encode(['code'=>202]);
+    return;
+}
+if(strlen($vinCode)>17){
+    $vinCode=substr($vinCode,17);
+}
+
+$lot=$contractNo=$bodyType=$vincode_="";
+$sql="SELECT * FROM BodyData WHERE BarCode like '%".$vinCode."%'";
+$result =$conn->query($sql);
+if($row=$result->fetch(PDO::FETCH_ASSOC)){
+    $lot=$row["LOT"]; $contractNo=$row["Contract"];$bodyType=$row["NameMode"]; $vincode_=$row["BarCode"];
+    echo json_encode(['code'=>200,'lot'=>$lot,'contractNo'=>$contractNo,'bodyType'=>$bodyType,'vincode'=>$vincode_]);
+    return;
+}
+else{
+    echo json_encode(['code'=>201,'sql'=>$sql]);
+    return;
+}
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c

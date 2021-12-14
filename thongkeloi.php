@@ -74,7 +74,11 @@ if (!$_SESSION['position']) {
                 <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                     <h3>NHẬP THÔNG TIN LỖI</h3>
                     <!-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> -->
+<<<<<<< HEAD
                     <div class="card" style="width: 100%;">
+=======
+                    <div class="card">
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                         <h5 class="text-center mb-4" id="idError">Số ID</h5>
                         <form class="form-card" onsubmit="event.preventDefault()">
                             <div class="row justify-content-between text-left">
@@ -99,13 +103,21 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Thời gian Lỗi</label>
                                     <select id="timeError" class="form-control">
+<<<<<<< HEAD
                                         <option selected></option>
+=======
+                                        <option selected>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Thời gian sản xuất</label>
                                     <select id="timeProduct" class="form-control">
+<<<<<<< HEAD
                                         <option selected></option>
+=======
+                                        <option selected>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                                     </select>
                                 </div>
@@ -113,13 +125,21 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Xưởng chịu trách nhiệm</label>
                                     <select id="errorShop" class="form-control">
+<<<<<<< HEAD
                                         <option selected></option>
+=======
+                                        <option selected>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Chuyền chịu trách nhiệm</label>
                                     <select id="errorChuyen" class="form-control">
+<<<<<<< HEAD
                                         <option selected></option>
+=======
+                                        <option selected>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                                     </select>
                                 </div>
@@ -127,6 +147,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tổ chịu trách nhiệm</label>
                                     <select id="errorTo" class="form-control">
+<<<<<<< HEAD
                                         <option selected></option>
 
                                     </select>
@@ -138,11 +159,30 @@ if (!$_SESSION['position']) {
                                     <select id="positionDetect" class="form-control" onblur="validate(2)">
                                         <option selected style="height: 100%;"></option>
                                         
+=======
+                                        <option selected>Chọn...</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">NS chịu trách nhiệm</label> <input type="text" id="mob" name="mob" placeholder="Nhập tên NS"> </div>
+                            </div>
+                            <div class="row justify-content-between text-left">
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nơi phát hiện<span class="text-danger"> *</span></label>
+                                    <select id="inputState" class="form-control" onblur="validate(2)">
+                                        <option selected style="height: 100%;">Chọn...</option>
+                                        <option>Chọn.1</option>
+                                        <option>Chọn.2.</option>
+                                        <option>Chọn.3.</option>
+                                        <option>Chọn...</option>
+                                        <option>Chọn...</option>
+                                        <option>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Số lượng lỗi<span class="text-danger"> *</span></label> <input type="number" id="mob" name="mob" placeholder="" onblur="validate(3)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
+<<<<<<< HEAD
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label> 
                                 <select id="typeError" class="form-control">
                                         <option selected>Chọn...</option>
@@ -151,23 +191,43 @@ if (!$_SESSION['position']) {
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M<span class="text-danger"> *</span></label> 
                                 <select id="inf4M" class="form-control">
                                         <option selected></option>
+=======
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label> <select id="inputState" class="form-control">
+                                        <option selected>Chọn...</option>
+
+                                    </select> </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M<span class="text-danger"> *</span></label> <select id="inputState" class="form-control">
+                                        <option selected>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                                     </select> </div>
                             </div>
                             <div class="row justify-content-between text-left">
+<<<<<<< HEAD
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi<span class="text-danger"> *</span></label> 
                                 <select id="tinhhuong" class="form-control">
                                         <option selected></option>
+=======
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi<span class="text-danger"> *</span></label> <select id="inputState" class="form-control">
+                                        <option selected>Chọn...</option>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                                     </select></div>
 
                             </div>
                             <div class="row justify-content-between text-left">
 
+<<<<<<< HEAD
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Mô tả lỗi</label>
                                     <div class="form-group">
                                         <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
                                         <textarea class="form-control" id="description" rows="3"></textarea>
+=======
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Mô tả lỗi<span class="text-danger"> *</span></label>
+                                    <div class="form-group">
+                                        <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +236,11 @@ if (!$_SESSION['position']) {
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Nguyên nhân?</label>
                                     <div class="form-group">
                                         <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+<<<<<<< HEAD
                                         <textarea class="form-control" id="reason" rows="3"></textarea>
+=======
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +253,7 @@ if (!$_SESSION['position']) {
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                            
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Ghi chú</label>
@@ -214,6 +279,13 @@ if (!$_SESSION['position']) {
                             </div>
                             
                             
+=======
+                            <div class="row justify-content-end">
+                                <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">Lưu</button> </div>
+                            </div>
+                            <input type="file" id="imgInp" accept="image/*" capture="camera" />
+                            <img id="blah" class="rounded" src="#" alt="your image" />
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                         </form>
                     </div>
                 </div>
@@ -227,7 +299,11 @@ if (!$_SESSION['position']) {
             <div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
+<<<<<<< HEAD
                         <div class="modal-header">
+=======
+                        <div class="d-flex justify-content-center modal-header">
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             <h4>Đăng xuất <i class="fa fa-lock"></i></h4>
                         </div>
@@ -255,7 +331,10 @@ if (!$_SESSION['position']) {
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+<<<<<<< HEAD
         
+=======
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
 
             <script>
@@ -280,7 +359,11 @@ if (!$_SESSION['position']) {
                         let shop = "";
                         shop = $('#errorShop').val();
 
+<<<<<<< HEAD
                         if (shop != '') {
+=======
+                        if (shop != 'Chọn...') {
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
 
                             _doit.loadTime(shop);
                         }
@@ -288,7 +371,11 @@ if (!$_SESSION['position']) {
                     $('#errorChuyen').change(function() {
                         let shop = $('#errorShop').val();
                         let chuyen = $('#errorChuyen').val();
+<<<<<<< HEAD
                         if (chuyen != '') {
+=======
+                        if (chuyen != 'Chọn...') {
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                             _doit.loadTime(shop, chuyen);
                         }
                     })
@@ -300,6 +387,7 @@ if (!$_SESSION['position']) {
                     imgInp.onchange = evt => {
                         const [file] = imgInp.files
                         if (file) {
+<<<<<<< HEAD
                             $('#pic1').append('<img id="blah" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
                             blah.src = URL.createObjectURL(file)
                         }
@@ -315,6 +403,11 @@ if (!$_SESSION['position']) {
                        
                         _doit.saveimg();
                     })
+=======
+                            blah.src = URL.createObjectURL(file)
+                        }
+                    }
+>>>>>>> 2034723b6aef7fc9a195d824351160237a9cde5c
                 })
             </script>
 </body>

@@ -286,9 +286,17 @@ function doit() {
             dataType: 'json',
             cache: false,
             success: function(result) {
+                console.log(result);
+                var data = {};
+                data = result.typeError;
+
+                // for (let i = 0; i < result.desc.length; i++) {
+                //     data = result.des[i];
+                // }
+                console.log(data);
                 if (result.code == 200) {
                     $("#description").autocomplete({
-                        source: result.des
+                        source: data
                     });
                 }
             },

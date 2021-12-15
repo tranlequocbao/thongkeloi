@@ -15,7 +15,7 @@ if (strlen($vinCode) > 17) {
 
 $lot = $contractNo = $bodyType = $vincode_ = "";
 $sql = "SELECT * FROM BodyData WHERE BarCode like '%" . $vinCode . "%'";
-$result = $connLaprap->query($sql);
+$result = $conn->query($sql);
 if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $lot = $row["LOT"];
     $contractNo = $row["Contract"];
@@ -26,21 +26,21 @@ if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     return;
 }
 $sql = "SELECT * FROM QC_INFORMATION_TIME";
-$result = $connServer->query($sql);
+$result = $conn->query($sql);
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $time[] = $row["Detect_Time"];
 }
 
 $idShop="";
 $sql_shop = "SELECT * FROM QC_INFORMATION_SHOP WHERE OK=1";
-$result = $connServer->query($sql_shop);
+$result = $conn->query($sql_shop);
 if ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
     $shop = $row;
    
 }
 $inf4M = [];
 $sql_4m = "SELECT *  FROM QC_INFORMATION_4M";
-$result = $connServer->query($sql_4m);
+$result = $conn->query($sql_4m);
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $inf4M[] = $row['NAME'];
 }
@@ -49,14 +49,14 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
 $tinhuong = '';
 $sql_th = "SELECT *  FROM QC_INFORMATION_MANDF";
-$result = $connServer->query($sql_th);
+$result = $conn->query($sql_th);
 while ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
     $tinhuong = $row;
 }
 
 $typeError = $idError=[];
 $sql_type = "SELECT *  FROM QC_INFORMATION_ERROR";
-$result = $connServer->query($sql_type);
+$result = $conn->query($sql_type);
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $typeError[] = $row['Error_name'];
     $idError[]=$row["IDError"];

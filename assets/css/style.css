@@ -63,5 +63,14 @@ button:focus {
     outline-width: 0
 }
 
+.ui-autocomplete {
+    position: absolute;
+    cursor: default;
+    background: #CCC
+}
+
+
+/* workarounds */
+
 
 /* datetimepicker */

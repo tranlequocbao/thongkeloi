@@ -5,10 +5,10 @@ $data=$_POST['allData'];
 $arrIdError=getIdError($data);
 echo json_encode(['code'=>$arrIdError]);
 function getIdError($data){
-    global $connServer;
+    global $conn;
     $Error_name=[];
     $sql = "SELECT * FROM QC_INFORMATION_ERROR WHERE IDError = ?";
-    $result=$connServer->prepare($sql);
+    $result=$conn->prepare($sql);
     $result->execute(array($data['typeError']));
     $row=$result->fetchAll(PDO::FETCH_ASSOC);
     $rowCount=count($row);

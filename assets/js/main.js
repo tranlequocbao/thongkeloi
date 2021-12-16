@@ -186,7 +186,8 @@ function doit() {
             success: function(result) {
 
                 if (result.code == 200) {
-                    console.log("rename thành công");
+                    pathPic1 = result.pic1;
+                    pathPic2 = result.pic2;
                 }
             },
             error: function(error) {
@@ -240,6 +241,8 @@ function doit() {
         let reason = $('#reason').val();
         let note = $('#note').val();
         let idShopData = idShop;
+        let amountError = $('#amountError').val();
+        let solution = $('#solution').val();
 
         let objData = {
             vincode: vincode,
@@ -259,7 +262,11 @@ function doit() {
             tinhhuong: tinhhuong,
             description: description,
             reason: reason,
-            note: note
+            note: note,
+            amountError: amountError,
+            img1: pathPic1,
+            img2: pathPic2,
+            solution: solution
 
         };
         console.log(objData);
@@ -272,7 +279,7 @@ function doit() {
                 allData: objData
             },
             success: function(result) {
-                // console.log(result);
+                console.log(result);
             },
             error: function(error) {
                 console.log(error.responseText)

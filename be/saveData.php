@@ -2,13 +2,53 @@
 include '../vendor/connect.php';
 $data=[];
 
-date_timezone_set('Asia/Ho_Chi_Minh');
+date_timezone_set($date, timezone_open('Asia/Ho_Chi_Minh'));
 $time=getdate();
 $data=$_POST['allData'];
-$arrIdError=getnameError($data);
+
 $nameError=getnameError(($data));
 $nameShop=getnameShop($data);
+$nameXuong=getnameChuyen($data);
+$nameTo=getnameTo($data);
+$inf4M=inf4M($data);
 $nameTinhhuong=getnameTinhhuong($data);
+$valuegetID=getID($data);
+$id=$valuegetID[0];
+$seq=$valuegetID[1];
+
+$insert=" INSERT INTO [dbo].[QC_INFOMATION_PROBLEMS]
+           ([ID]
+           ,[VIN_CODE]
+           ,[MODEL]
+           ,[DATETIME]
+           ,[SHOP]
+           ,[SECTION]
+           ,[STATION]
+           ,[POSITION]
+           ,[AMOUNT_ERROR]
+           ,[TYPE_ERROR]
+           ,[DESC_ERROR]
+           ,[IMG]
+           ,[RESPON]
+           ,[DETECT_TIME]
+           ,[PRODUCT_TIME]
+           ,[LOT]
+           ,[M4M]
+           ,[CAUSE]
+           ,[SOLUTED]
+           ,[NOTE]
+           ,[SEQ]
+           ,[KINDMAN]
+           ,[Report]
+           ,[CONTRACT_NO]
+           ,[IMG2])
+     VALUES
+           ('".$id."',,'".$data['vincode']."','".$data['bodyType']."','".$data['time']."','".$nameShop."','".$nameXuong."','".$nameTo."','".$data['positionDetect']."','".$data['amountError']."','".$nameError."','".$data['description']."','".$data['img1']."' ,'".$data['human']."',''".$data['timeError']."'
+           ,'".$data['timeProduct']."','".$data['lot']."'
+           ,'".$data['inf4M']."','".$data['reason']."','".$data['solution']."','".$data['note']."','".$seq."','".$data['tinhhuong']."','0','".$data['contractNo']."','".$data['img2']."')";
+
+
+           echo json_encode(['result'=>$insert]); return;
 function getnameError($data){
     global $connServer;
     $Error_name='';
@@ -25,7 +65,6 @@ function getnameError($data){
     return $row;
 
 }
-
 function getnameTinhhuong($data){
     global $connServer;
     $Error_name='';
@@ -56,7 +95,6 @@ function inf4M($data){
     }
     return $row;
 }
-
 function getnameShop($data){
     global $connServer;
     $Error_name='';
@@ -113,6 +151,8 @@ function getID($data){
     if($rowCount>0){
         $seq=(int)$row['SEQ']+1;
     }
-    $id=date('Ymd')+$data[]
+    $id=date('Ymd')+$data['typeError']+$seq;
+    $value=[0=>$id,1=>$seq];
+    return $value;
 }
 ?>

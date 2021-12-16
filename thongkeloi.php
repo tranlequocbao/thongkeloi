@@ -140,7 +140,8 @@ if (!$_SESSION['position']) {
                                         
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Số lượng lỗi<span class="text-danger"> *</span></label> <input type="number" id="mob" name="mob" placeholder="" onblur="validate(3)"> </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Số lượng lỗi<span class="text-danger"> *</span></label> 
+                                <input type="number" id="amountError" name="mob" placeholder="" onblur="validate(3)"> </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label> 
@@ -177,6 +178,14 @@ if (!$_SESSION['position']) {
                                     <div class="form-group">
                                         <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
                                         <textarea class="form-control" id="reason" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between text-left">
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Giải pháp</label>
+                                    <div class="form-group">
+                                        <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                                        <textarea class="form-control" id="solution" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -244,6 +253,10 @@ if (!$_SESSION['position']) {
                     </div>
                 </div>
             </div>
+            <script>
+                var pathPic1="";
+                var pathPic2="";
+            </script>
 
             <script src="assets/js/main.js"></script>
             <script src="assets/js/form.js"></script>

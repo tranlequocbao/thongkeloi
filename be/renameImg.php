@@ -42,5 +42,5 @@ $lastValue2=end($allValue2);
 
 
 
-echo json_encode(['pic1' => $arryFile1, 'pic2' => $arryFile2]);
+echo json_encode(['pic1' => $newName1, 'pic2' => $newName2]);
 return;

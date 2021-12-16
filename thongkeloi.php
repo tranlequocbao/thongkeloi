@@ -264,6 +264,8 @@ if (!$_SESSION['position']) {
                     var timePicker="";
                     var idErrorGlobal="";
                     var idShop='';
+                    var idChuyen='';
+                    var idTo='';
                     $(function() {
                         $('#datetimepicker1').datetimepicker({
                             format:'MM/DD/YYYY HH:mm:ss',
@@ -331,6 +333,12 @@ if (!$_SESSION['position']) {
                     $('#errorShop').click(function(){
                         idShop=$(this).val();
                         _doit.loadError(idShop);
+                    })
+                    $('#errorChuyen').click(function(){
+                        idChuyen=$(this).val();
+                    })
+                    $('#errorTo').click(function(){
+                        idTo=$(this).val();
                     })
                     _doit.changeDes();
                 })

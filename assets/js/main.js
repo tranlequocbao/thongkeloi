@@ -45,10 +45,10 @@ function doit() {
                     }
 
                     $('#inf4M option').remove();
-                    $('#inf4M').append('<option></option>');
+                    $('#inf4M').append('<option detected value=""></option>');
                     for (let i = 0; i < inf4M.length; i++) {
 
-                        $('#inf4M').append("<option>" + inf4M[i] + "</option>");
+                        $('#inf4M').append("<option value=" + inf4M[i]['ID'] + ">" + inf4M[i]['NAME'] + "</option>");
                     }
                     $('#tinhhuong option').remove();
                     $('#tinhhuong').append('<option value=""></option>');
@@ -93,19 +93,20 @@ function doit() {
                     let chuyen_ = result.xuong;
                     let to_ = result.to;
 
+
                     if (shop != "" && xuong == "") {
                         $('#errorChuyen option').remove();
-                        $('#errorChuyen').append('<option> </option>');
+                        $('#errorChuyen').append('<option detected value=""> </option>');
                         for (let i = 0; i < chuyen_.length; i++) {
-                            $('#errorChuyen').append('<option>' + chuyen_[i] + '</option>');
+                            $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
                         }
 
                     }
                     if (shop != "" && xuong != "") {
                         $('#errorTo option').remove();
-                        $('#errorTo').append('<option> </option>')
+                        $('#errorTo').append('<option detected value=""> </option>')
                         for (let i = 0; i < to_.length; i++) {
-                            $('#errorTo').append('<option>' + to_[i] + '</option>')
+                            $('#errorTo').append('<option value=' + to_[i]['IDStation'] + '>' + to_[i]['Station_name'] + '</option>')
                         }
 
                     }
@@ -227,7 +228,7 @@ function doit() {
         let time = $('#timePicker').val();
         let timeError = $('#timeError').val();
         let timeProduct = $('#timeProduct').val();
-        var errorShop = $('#errorShop').val();
+        //var errorShop = $('#errorShop').val();
         let errorChuyen = $('#errorChuyen').val();
         let errorTo = $('#errorTo').val();
         let human = $('#human').val();
@@ -248,7 +249,7 @@ function doit() {
             time: time,
             timeError: timeError,
             timeProduct: timeProduct,
-            errorShop: errorShop,
+            errorShop: idShopData,
             errorChuyen: errorChuyen,
             errorTo: errorTo,
             human: human,
@@ -271,7 +272,7 @@ function doit() {
                 allData: objData
             },
             success: function(result) {
-                console.log(result);
+                // console.log(result);
             },
             error: function(error) {
                 console.log(error.responseText)
@@ -286,14 +287,14 @@ function doit() {
             dataType: 'json',
             cache: false,
             success: function(result) {
-                console.log(result);
+                //console.log(result);
                 var data = {};
                 data = result.typeError;
 
                 // for (let i = 0; i < result.desc.length; i++) {
                 //     data = result.des[i];
                 // }
-                console.log(data);
+                //console.log(data);
                 if (result.code == 200) {
                     $("#description").autocomplete({
                         source: data

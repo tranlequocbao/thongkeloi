@@ -146,21 +146,21 @@ if (!$_SESSION['position']) {
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label>
-                                    <select id="typeError" class="form-control">
-                                       
+                                    <select id="typeError" class="form-control" onblur="validate(4)">
+
 
                                     </select>
                                 </div>
 
                             </div>
                             <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M<span class="text-danger"> *</span></label>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M</label>
                                     <select id="inf4M" class="form-control">
                                         <option selected></option>
 
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Cấp độ lỗi<span class="text-danger"> *</span></label>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Cấp độ lỗi</label>
                                     <select id="levelError" class="form-control">
                                         <option selected></option>
 
@@ -168,7 +168,7 @@ if (!$_SESSION['position']) {
                                 </div>
                             </div>
                             <div class="row justify-content-between text-left">
-                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi<span class="text-danger"> *</span></label>
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi</label>
                                     <select id="tinhhuong" class="form-control">
                                         <option selected></option>
 
@@ -360,9 +360,22 @@ if (!$_SESSION['position']) {
                     }
                 }
                 $('#save').click(function() {
-                    _doit.saveimg();
-                    console.log(pathPic1);
-                    console.log(pathPic2);
+                    let x = '';
+                    var res = $("input[type=text]").toArray().some(function(el) {
+                        return $(el).css("border-color") === "rgb(255, 0, 0)"
+                    });
+                    var res2=$("select").toArray().some(function(el){
+                        return $(el).css("border-color") === "rgb(255, 0, 0)"
+                    });
+                    // `border-color` === `rgb(255, 0, 0)` , `border-color`:`"red"`
+                    if (res||res2) {
+                        alert('Vui lòng nhập đủ thông tin trước khi lưu!');
+                    }
+                    else {
+                        _doit.saveimg();
+                    };
+                   
+
 
 
 

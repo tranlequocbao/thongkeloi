@@ -1,17 +1,15 @@
 function validate(val) {
     v1 = document.getElementById("vincode");
-    v2 = document.getElementById("lot");
-    v3 = document.getElementById("contractNo");
-    v4 = document.getElementById("mob");
-    v5 = document.getElementById("job");
-    v6 = document.getElementById("ans");
+    v2 = document.getElementById("positionDetect");
+    v3 = document.getElementById("amountError");
+    v4 = document.getElementById("typeError");
+
 
     flag1 = true;
     flag2 = true;
     flag3 = true;
     flag4 = true;
-    flag5 = true;
-    flag6 = true;
+
 
     if (val >= 1 || val == 0) {
         if (v1.value == "") {
@@ -50,24 +48,7 @@ function validate(val) {
             flag4 = true;
         }
     }
-    if (val >= 5 || val == 0) {
-        if (v5.value == "") {
-            v5.style.borderColor = "red";
-            flag5 = false;
-        } else {
-            v5.style.borderColor = "green";
-            flag5 = true;
-        }
-    }
-    if (val >= 6 || val == 0) {
-        if (v6.value == "") {
-            v6.style.borderColor = "red";
-            flag6 = false;
-        } else {
-            v6.style.borderColor = "green";
-            flag6 = true;
-        }
-    }
+
 
     flag = flag1 && flag2 && flag3 && flag4 && flag5 && flag6;
 

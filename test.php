@@ -9,15 +9,22 @@ $id='20211217BDERROR10837';$vincode='RN2B12SAAMM066075';$type='All-New Mazda3 1.
 
 
 try{
-    $insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL)
-    VALUES (?,?,?,?,?,?,?,?,?,N?,?,?,?,?,?,?,N?,?,?,?,?,?,?,?,?)";
+    // $insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL)
+    // VALUES (?,?,?,?,?,?,?,?,?,N?,?,?,?,?,?,?,N?,?,?,?,?,?,?,?,?)";
+
+$insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
          
          $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
          $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level);
     
          $insertReview=$connServer->prepare($insert);
+        //  $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+        //  $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
+        $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+        $timeProduct,$lot,$inf4M);
          $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-         $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
+          $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
          echo json_encode(['result'=>$params]);
 }
 catch(Exception $e)

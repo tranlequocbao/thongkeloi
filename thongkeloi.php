@@ -19,7 +19,11 @@ if (!$_SESSION['position']) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/awsome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap/datetimePicker/css/bootstrap-datetimepicker.min.css">
+
+
     <link rel="stylesheet" href="assets/css/style.css">
     <title>ỨNG DỤNG THỐNG KÊ LỖI</title>
 </head>
@@ -41,7 +45,7 @@ if (!$_SESSION['position']) {
                             <a class="nav-link" href="#">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Danh sách lỗi</a>
+                            <a class="nav-link" href="#"> <i class="fal fa-address-book"></i>Danh sách lỗi</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -86,13 +90,9 @@ if (!$_SESSION['position']) {
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Loại Xe</label> <input type="text" id="bodyType" name="email" placeholder="" readonly> </div>
                                 <div class="form-group col-sm-6 flex-column d-flex">
                                     <label class="form-control-label px-3">Ngày tháng</label>
-                                    <div class="form-group">
-                                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                            <input type="text" id="timePicker" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
-                                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                            </div>
-                                        </div>
+
+                                    <div class='col'>
+                                        <input type='text' class="form-control" id='datetimepicker1' />
                                     </div>
                                 </div>
                             </div>
@@ -137,30 +137,43 @@ if (!$_SESSION['position']) {
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nơi phát hiện<span class="text-danger"> *</span></label>
                                     <select id="positionDetect" class="form-control" onblur="validate(2)">
                                         <option selected style="height: 100%;"></option>
-                                        
+
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Số lượng lỗi<span class="text-danger"> *</span></label> 
-                                <input type="number" id="amountError" name="mob" placeholder="" onblur="validate(3)"> </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Số lượng lỗi<span class="text-danger"> *</span></label>
+                                    <input type="number" id="amountError" name="mob" placeholder="" onblur="validate(3)">
+                                </div>
                             </div>
                             <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label> 
-                                <select id="typeError" class="form-control">
-                                        <option selected>Chọn...</option>
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label>
+                                    <select id="typeError" class="form-control">
+                                       
 
-                                    </select> </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M<span class="text-danger"> *</span></label> 
-                                <select id="inf4M" class="form-control">
-                                        <option selected></option>
+                                    </select>
+                                </div>
 
-                                    </select> </div>
                             </div>
                             <div class="row justify-content-between text-left">
-                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi<span class="text-danger"> *</span></label> 
-                                <select id="tinhhuong" class="form-control">
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M<span class="text-danger"> *</span></label>
+                                    <select id="inf4M" class="form-control">
                                         <option selected></option>
 
-                                    </select></div>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Cấp độ lỗi<span class="text-danger"> *</span></label>
+                                    <select id="levelError" class="form-control">
+                                        <option selected></option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between text-left">
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi<span class="text-danger"> *</span></label>
+                                    <select id="tinhhuong" class="form-control">
+                                        <option selected></option>
+
+                                    </select>
+                                </div>
 
                             </div>
                             <div class="row justify-content-between text-left">
@@ -198,18 +211,18 @@ if (!$_SESSION['position']) {
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Ghi chú</label>
                                     <div class="form-group" id="pic1">
-                                    <input type="file" id="imgInp" name='imgInp' accept="image/*" capture="camera" />
-                                    
+                                        <input type="file" id="imgInp" name='imgInp' accept="image/*" capture="camera" />
+
                                     </div>
                                 </div>
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Ghi chú</label>
                                     <div class="form-group" id="pic2">
-                                    <input type="file" id="imgInp1" accept="image/*" name='cam2' capture="camera" />
-                                  
+                                        <input type="file" id="imgInp1" accept="image/*" name='cam2' capture="camera" />
+
                                     </div>
                                 </div>
                                 <!-- <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Ghi chú</label>
@@ -221,8 +234,8 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-center">
                                 <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary" id="save">Lưu</button> </div>
                             </div>
-                            
-                            
+
+
                         </form>
                     </div>
                 </div>
@@ -253,109 +266,124 @@ if (!$_SESSION['position']) {
                     </div>
                 </div>
             </div>
-            <script>
-                var pathPic1="";
-                var pathPic2="";
-            </script>
+        </div>
 
-            <script src="assets/js/main.js"></script>
-            <script src="assets/js/form.js"></script>
-     
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-            <script src="vendor/js/query-ui.js"></script>
+        <script type="text/javascript" src="assets/js/main.js"></script>
+        <script type="text/javascript" src="assets/js/form.js"></script>
+
+        <script src="vendor/jquery/jquery-3.6.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
 
-            <script>
-                $(document).ready(function() {
-                    var timePicker="";
-                    var idErrorGlobal="";
-                    var idShop='';
-                    var idChuyen='';
-                    var idTo='';
-                    $(function() {
-                        $('#datetimepicker1').datetimepicker({
-                            format:'MM/DD/YYYY HH:mm:ss',
-                            defaultDate: new Date(),
-                           
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-                        });
+        <script type="text/javascript" src="vendor/js/moment.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+        <script type="text/javascript" src="vendor/bootstrap/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> --> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" /> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>-->
+        <!-- <link rel="stylesheet" href="vendor/font/css/font-all.css"> -->
+        <script type="text/javascript" src="vendor/jquery/query-ui.js"></script>
+
+
+        <script>
+            var pathPic1 = "";
+            var pathPic2 = "";
+            var idErrorGlobal = "";
+            var idShop = '';
+            var idChuyen = '';
+            var idTo = '';
+        </script>
+        <script>
+            $(document).ready(function() {
+                var timePicker = "";
+
+
+                $(function() {
+                    $('#datetimepicker1').datetimepicker({
+                        format: 'MM-DD-YYYY HH:mm:ss',
+                        defaultDate: new Date(),
                     });
-                    _doit.loadTime();
-                    $('#vincode').focus();
-                    $('#vincode').blur(function() {
-                        let vincode = ""
-                        vincode = $('#vincode').val();
-                        _doit.loadVincode(vincode);
-                    })
-                    $('#vincode').bind('enterKey', function() {
-                        $('#vincode').blur();
-                    });
-                    $('#errorShop').change(function() {
-                        let shop = "";
-                        shop = $('#errorShop').val();
-             
-                        if (shop != '') {
-
-                            _doit.loadTime(shop);
-                        }
-                    })
-                    $('#errorChuyen').change(function() {
-                        let shop = $('#errorShop').val();
-                        let chuyen = $('#errorChuyen').val();
-                        if (chuyen != '') {
-                            _doit.loadTime(shop, chuyen);
-                        }
-                    })
-                    $('#positionDetect').change(function(){
-                        
-                    })
-                    $('#logout').click(function() {
-
-                        window.location.href = 'index.html';
-                    })
-
-                    imgInp.onchange = evt => {
-                        const [file] = imgInp.files
-                        if (file) {
-                            $('#pic1').append('<img id="blah" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
-                            blah.src = URL.createObjectURL(file)
-                        }
-                    }
-                    imgInp1.onchange = evt => {
-                        const [file] = imgInp1.files
-                        if (file) {
-                            $('#pic2').append('  <img id="blah1" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
-                            blah1.src = URL.createObjectURL(file)
-                        }
-                    }
-                    $('#save').click(function(){
-                       _doit.savedata(idErrorGlobal,idShop);
-                        _doit.saveimg();
-                    })
-                    $('#typeError').click(function(){
-                        idErrorGlobal=$(this).val();
-                        console.log(idErrorGlobal);
-                    })
-                    $('#errorShop').click(function(){
-                        idShop=$(this).val();
-                        _doit.loadError(idShop);
-                    })
-                    $('#errorChuyen').click(function(){
-                        idChuyen=$(this).val();
-                    })
-                    $('#errorTo').click(function(){
-                        idTo=$(this).val();
-                    })
-                    _doit.changeDes();
+                });
+                _doit.loadTime();
+                $('#vincode').focus();
+                $('#vincode').blur(function() {
+                    let vincode = ""
+                    vincode = $('#vincode').val();
+                    _doit.loadVincode(vincode);
                 })
-            </script>
+                $('#vincode').bind('enterKey', function() {
+                    $('#errorShop').focus();
+                });
+                $('#errorShop').change(function() {
+                    let shop = "";
+                    shop = $('#errorShop').val();
+
+                    if (shop != '') {
+
+                        _doit.loadTime(shop);
+                    }
+                })
+                $('#errorChuyen').change(function() {
+                    let shop = $('#errorShop').val();
+                    let chuyen = $('#errorChuyen').val();
+                    if (chuyen != '') {
+                        _doit.loadTime(shop, chuyen);
+                    }
+                })
+                $('#positionDetect').change(function() {
+
+                })
+                $('#logout').click(function() {
+
+                    window.location.href = 'index.html';
+                })
+
+                imgInp.onchange = evt => {
+                    const [file] = imgInp.files
+                    if (file) {
+                        $('#pic1').append('<img id="blah" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
+                        blah.src = URL.createObjectURL(file)
+                    }
+                }
+                imgInp1.onchange = evt => {
+                    const [file] = imgInp1.files
+                    if (file) {
+                        $('#pic2').append('  <img id="blah1" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
+                        blah1.src = URL.createObjectURL(file)
+                    }
+                }
+                $('#save').click(function() {
+                    _doit.saveimg();
+                    console.log(pathPic1);
+                    console.log(pathPic2);
+
+
+
+                })
+                $('#typeError').click(function() {
+                    idErrorGlobal = $(this).val();
+                    console.log(idErrorGlobal);
+                })
+                $('#errorShop').click(function() {
+                    idShop = $(this).val();
+                    _doit.loadError(idShop);
+                })
+                $('#errorChuyen').click(function() {
+                    idChuyen = $(this).val();
+                })
+                $('#errorTo').click(function() {
+                    idTo = $(this).val();
+                })
+                _doit.changeDes();
+            })
+        </script>
 </body>
 
 

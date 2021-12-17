@@ -1,9 +1,28 @@
 <?php
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-$vincode = $_POST['vincode'];
+include '../vendor/connect.php';
+function getID($typeError){
+    global $connServer;
+    $id='';$stt='';$seq=0;
+    $sql="SELECT TOP 1 SEQ FROM QC_INFOMATION_PROBLEMS ORDER BY SEQ DESC";
+    $result=$connServer->query($sql);
+    
+    if($row=$result->fetch(PDO::FETCH_ASSOC)){
+        $seq=(int)$row['SEQ'];
+    }
+    $seq=$seq+1;
+    $id=date('Ymd');
+    // $seq=(int)$stt; $seq+=1; $stt=(string)$seq;
+    $id=date('Ymd').$typeError.$seq;
+    $value=[0=>$id,1=>$seq];
+    return $value;
+}
+
+$typeError = $_POST['typeError'];
 $pic = $_POST['pic1'];
 $pic2 = $_POST['pic2'];
-$id = $_POST['id'];
+$idData = getID($typeError);
+$id=$idData[0];
 
 $allValue1=$allValue2=$lastValue1=$lastValue12=$arryFile1=$arryFile2="";
 $newName1 = $newName2 = "";
@@ -42,5 +61,5 @@ $lastValue2=end($allValue2);
 
 
 
-echo json_encode(['pic1' => $newName1, 'pic2' => $newName2]);
+echo json_encode(['code'=>200,'pic1' => $newName1, 'pic2' => $newName2,'id'=>$idData]);
 return;

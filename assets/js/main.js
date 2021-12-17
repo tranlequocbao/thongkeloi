@@ -12,7 +12,7 @@ function doit() {
             },
             dataType: "json",
             success: function(result) {
-
+                console.log(result);
                 if (result.code == 200) {
 
 
@@ -20,8 +20,8 @@ function doit() {
                     let shop_ = result.shop;
                     let inf4M = result.if4M;
                     let tinhhuong = result.tinhhuong;
-                    let typeError = result.typeError;
-                    let idError = result.idError;
+                    let level = result.level;
+
                     $('#contractNo').val(result.contractNo);
                     $('#lot').val(result.lot);
                     $('#bodyType').val(result.bodyType);
@@ -55,6 +55,13 @@ function doit() {
                     for (let i = 0; i < tinhhuong.length; i++) {
 
                         $('#tinhhuong').append("<option value=" + tinhhuong[i]['ID'] + ">" + tinhhuong[i]['NAME'] + "</option>");
+                    }
+
+                    $('#levelError option').remove();
+                    $('#levelError').append('<option value=""></option>');
+                    for (let i = 0; i < level.length; i++) {
+
+                        $('#levelError').append("<option value=" + level[i]['ID'] + ">" + level[i]['LEVEL'] + "</option>");
                     }
 
                     // $('#typeError option').remove();
@@ -179,16 +186,19 @@ function doit() {
             data: {
                 pic1: path1,
                 pic2: path2,
-                id: '1234',
-                vincode: 'aaa',
+
+                typeError: idErrorGlobal,
             },
             type: 'post',
             success: function(result) {
-
+                console.log(result.id);
                 if (result.code == 200) {
                     pathPic1 = result.pic1;
                     pathPic2 = result.pic2;
+                    sefl.savedata(idErrorGlobal, idShop, result.id);
+
                 }
+
             },
             error: function(error) {
                 console.log(error.responseText);
@@ -220,13 +230,13 @@ function doit() {
 
         })
     }
-    this.savedata = (idErrorGlobal, idShop) => {
+    this.savedata = (idErrorGlobal, idShop, dataId) => {
 
         let vincode = $('#vincode').val();
         let lot = $('#lot').val();
         let contractNo = $('#contractNo').val();
         let bodyType = $('#bodyType').val();
-        let time = $('#timePicker').val();
+        let time = $("#datetimepicker1").val();
         let timeError = $('#timeError').val();
         let timeProduct = $('#timeProduct').val();
         //var errorShop = $('#errorShop').val();
@@ -243,7 +253,8 @@ function doit() {
         let idShopData = idShop;
         let amountError = $('#amountError').val();
         let solution = $('#solution').val();
-
+        let id_ = dataId;
+        let level = $('#levelError').val();
         let objData = {
             vincode: vincode,
             lot: lot,
@@ -266,7 +277,9 @@ function doit() {
             amountError: amountError,
             img1: pathPic1,
             img2: pathPic2,
-            solution: solution
+            solution: solution,
+            level: level
+
 
         };
         console.log(objData);
@@ -276,7 +289,8 @@ function doit() {
             dataType: 'json',
             cache: false,
             data: {
-                allData: objData
+                allData: objData,
+                id: id_,
             },
             success: function(result) {
                 console.log(result);

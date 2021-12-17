@@ -41,7 +41,7 @@ if ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
 $inf4M = "";
 $sql_4m = "SELECT *  FROM QC_INFORMATION_4M";
 $result = $connServer->query($sql_4m);
-while ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
+if ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
     $inf4M = $row;
 }
 
@@ -50,7 +50,7 @@ while ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
 $tinhuong = '';
 $sql_th = "SELECT *  FROM QC_INFORMATION_MANDF";
 $result = $connServer->query($sql_th);
-while ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
+if ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
     $tinhuong = $row;
 }
 
@@ -61,5 +61,12 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $typeError[] = $row['Error_name'];
     $idError[]=$row["IDError"];
 }
-echo json_encode(['code' => 200, 'lot' => $lot, 'contractNo' => $contractNo, 'bodyType' => $bodyType, 'vincode' => $vincode_, 'time' => $time, 'shop' => $shop,'if4M'=>$inf4M,'tinhhuong'=>$tinhuong,'typeError'=>$typeError,'idError'=>$idError]);
+$level = '';
+$sql_level = "SELECT *  FROM QC_INFORMATION_LEVEL";
+$result = $connServer->query($sql_level);
+if ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
+    $level = $row;
+   
+}
+echo json_encode(['code' => 200, 'lot' => $lot, 'contractNo' => $contractNo, 'bodyType' => $bodyType, 'vincode' => $vincode_, 'time' => $time, 'shop' => $shop,'if4M'=>$inf4M,'tinhhuong'=>$tinhuong,'typeError'=>$typeError,'idError'=>$idError,'level'=>$level]);
 return;

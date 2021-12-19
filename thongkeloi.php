@@ -22,14 +22,14 @@ if (!$_SESSION['position']) {
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/awsome/css/font-awesome.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/datetimePicker/css/bootstrap-datetimepicker.min.css">
-
+    <link rel="stylesheet" href="vendor/css/sweetalert2.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
     <title>ỨNG DỤNG THỐNG KÊ LỖI</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="nav-bar">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">
@@ -42,14 +42,14 @@ if (!$_SESSION['position']) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Trang chủ <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="#"><i class="fa fa-home" aria-hidden="true"></i>  Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> <i class="fal fa-address-book"></i>Danh sách lỗi</a>
+                            <a class="nav-link" href="#"><i class="fa fa-list" aria-hidden="true"></i>  Danh sách lỗi</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Biểu đồ
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>  Biểu đồ
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -68,7 +68,7 @@ if (!$_SESSION['position']) {
                     <form class="form-inline my-2 my-lg-0">
                         <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-                        <a href="#" data-toggle="modal" data-target="#logoutModal">logout</a>
+                        <a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
                     </form>
                 </div>
             </nav>
@@ -147,7 +147,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label>
                                     <select id="typeError" class="form-control" onblur="validate(4)">
-
+                                    <option selected></option>
 
                                     </select>
                                 </div>
@@ -267,6 +267,29 @@ if (!$_SESSION['position']) {
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="messResult">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thông báo</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body" id="contentResult">
+                       
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <script type="text/javascript" src="assets/js/main.js"></script>
         <script type="text/javascript" src="assets/js/form.js"></script>
@@ -290,6 +313,7 @@ if (!$_SESSION['position']) {
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>-->
         <!-- <link rel="stylesheet" href="vendor/font/css/font-all.css"> -->
         <script type="text/javascript" src="vendor/jquery/query-ui.js"></script>
+        <script type="text/javascript" src="vendor/js/sweetalert2.all.min.js"></script>
 
 
         <script>
@@ -326,14 +350,15 @@ if (!$_SESSION['position']) {
                     shop = $('#errorShop').val();
 
                     if (shop != '') {
-
+                        _doit.loadError(shop);
                         _doit.loadTime(shop);
+                        
                     }
                 })
                 $('#errorChuyen').change(function() {
                     let shop = $('#errorShop').val();
                     let chuyen = $('#errorChuyen').val();
-                    if (chuyen != '') {
+                    if (chuyen != "") {
                         _doit.loadTime(shop, chuyen);
                     }
                 })
@@ -360,34 +385,36 @@ if (!$_SESSION['position']) {
                     }
                 }
                 $('#save').click(function() {
-                    let x = '';
+
+                    let x = $('#positionDetect').val();
+                    let y =$('#typeError').val();
+                    let z=$('#amountError').val();
                     var res = $("input[type=text]").toArray().some(function(el) {
                         return $(el).css("border-color") === "rgb(255, 0, 0)"
                     });
-                    var res2=$("select").toArray().some(function(el){
+                    var res2 = $("select").toArray().some(function(el) {
                         return $(el).css("border-color") === "rgb(255, 0, 0)"
                     });
                     // `border-color` === `rgb(255, 0, 0)` , `border-color`:`"red"`
-                    if (res||res2) {
+                    if (res || res2||x==""||y==""||z=="") {
                         alert('Vui lòng nhập đủ thông tin trước khi lưu!');
-                    }
-                    else {
+                    } else {
                         _doit.saveimg();
                     };
-                   
-
+                    //_doit.showMesss("lỗi","error");
 
 
 
                 })
-                $('#typeError').click(function() {
-                    idErrorGlobal = $(this).val();
-                    console.log(idErrorGlobal);
+                $('#typeError').change(function() {
+                    let id=$('#typeError').val();
+                    if(id!="") idErrorGlobal=id;                    // idErrorGlobal = $(this).val();
+                    // console.log(idErrorGlobal);
                 })
-                $('#errorShop').click(function() {
-                    idShop = $(this).val();
-                    _doit.loadError(idShop);
-                })
+                // $('#errorShop').click(function() {
+                //     idShop = $(this).val();
+                //     _doit.loadError(idShop);
+                // })
                 $('#errorChuyen').click(function() {
                     idChuyen = $(this).val();
                 })

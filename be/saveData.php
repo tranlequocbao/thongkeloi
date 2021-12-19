@@ -9,6 +9,7 @@ $dataId=$_POST['id'];
 
 $id=$dataId[0];
 $seq=$dataId[1];
+
 $vincode=$data['vincode'];
 $type=$data['bodyType']; $time=$data['time'];$nameShop=getnameShop($data);$nameXuong=getnameChuyen($data);$nameTo=getnameTo($data);
 $positionDetect=$data['positionDetect'];$amountError=$data['amountError'];$nameError=getnameError(($data));
@@ -19,26 +20,31 @@ $path2=$data['img2']; $level=$data['level'];$report="0";
 
 $dataInser=[$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
 $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level];
-try{
-    $insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-         
-         $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-         $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level);
-    
-         $insertReview=$connServer->prepare($insert);
-        //  $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-        //  $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
-        $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-        $timeProduct,$lot,$inf4M);
-         $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-          $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
-         echo json_encode(['result'=>$params]);
+if(strlen($id)>18){
+    try{
+        $insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+             
+             $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+             $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level);
+        
+             $insertReview=$connServer->prepare($insert);
+            //  $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+            //  $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
+            $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+            $timeProduct,$lot,$inf4M);
+             $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+              $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
+             echo json_encode(['code'=>200,'result'=>$params]); return;
+    }
+    catch(Exception $e)
+    {
+        echo json_encode(['code'=>201,'error'=>$e]); return;
+    }
 }
-catch(Exception $e)
-{
-    die( print_r( $e->getMessage() ) );
-}
+else{
+    echo json_encode(['code'=>201,'error'=>'ID Không đủ thông tin'.$id.'']); return;
+} 
 
      
     //  '".$dataInser[0]."'.'".$dataInser[1]."','".$dataInser[2]."','".$dataInser[3]."','".$dataInser[4]."','".$dataInser[5]."','".$dataInser[6]."',

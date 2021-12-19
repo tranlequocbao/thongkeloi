@@ -250,7 +250,7 @@ function doit() {
         let description = $('#description').val();
         let reason = $('#reason').val();
         let note = $('#note').val();
-        let idShopData = idShop;
+        let idShopData = $('#errorShop').val();
         let amountError = $('#amountError').val();
         let solution = $('#solution').val();
         let id_ = dataId;
@@ -293,13 +293,40 @@ function doit() {
                 id: id_,
             },
             success: function(result) {
-                console.log(result);
+                console.log(result.code);
+                if (result.code == 200) {
+                    //alert('aaa');
+                    // $('#contentResult').empty();
+                    // $('#contentResult').append('Lưu thành công dữ liệu!', 'success');
+                    // $('#messResult').modal('toggle');
+                    sefl.showMesss("Lưu thành công dữ liệu!", 'success')
+                } else if (result.code == 201) {
+                    // $('#contentResult').empty();
+                    // $('#contentResult').append('LƯU THẤT BẠI!' + result.error, 'error');
+                    // $('#messResult').modal('toggle');
+                    sefl.showMesss("Lỗi lưu dữ liệu!" + result.error + "", 'error')
+                }
             },
             error: function(error) {
                 console.log(error.responseText)
             }
         })
 
+    }
+    this.showMesss = (content, status) => {
+        // $('#save').attr('data-toggle', 'modal');
+        // $('#save').attr('data-target', '#messResult');
+        // $('#contentResult').append(content);
+        //alert(content);
+
+
+        Swal.fire({
+            // position: 'top-end',
+            icon: status,
+            title: content,
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
     this.changeDes = () => {
         $.ajax({

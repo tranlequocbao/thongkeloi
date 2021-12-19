@@ -31,7 +31,8 @@ button {
     box-sizing: border-box;
     border: 1px solid #ccc;
     font-size: 18px !important;
-    font-weight: 300
+    font-weight: 300;
+    width: 100%;
 }
 
 input:focus,

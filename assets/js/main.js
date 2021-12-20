@@ -376,6 +376,7 @@ function doit() {
                 let list = result.list
                 let totalPage = result.totalPage;
                 let currentPage = result.currentPage;
+                let limit = result.limit;
                 if (result.code == 200) {
                     for (let i = 0; i < list.length; i++) {
                         html += `
@@ -398,6 +399,29 @@ function doit() {
                     }
                     $('#listData').append(html);
 
+                    $('.clearfix').append('<div class="hint-text">Showing <b>' + limit + '</b> out of <b>25</b> entries</div> <ul class="pagination"  style="width: 100%;overflow:auto;">')
+
+                    // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                    if (currentPage > 1 && totalPage > 1) {
+                        $('.pagination').append('<li class="page-item disabled"><a class="page-link" href="index.php?page=' + (currentPage - 1) + '">Prev</a></li>')
+
+                    }
+                    for (let j = 1; j <= totalPage; j++) {
+                        // Nếu là trang hiện tại thì hiển thị thẻ span
+                        // ngược lại hiển thị thẻ a
+                        if (j == currentPage) {
+                            $('.pagination').append('<li class="page-item"><a class="page-link" href="index.php?page=' + (currentPage - 1) + '">Prev</a></li>');
+                        } else {
+
+                            $('.pagination').append('<li class="page-item"><a href="index.php?page=' + j + '">' + j + '</a></li>');
+                        }
+                    }
+                    // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                    if (currentPage < totalPage && totalPage > 1) {
+
+                        $('.pagination').append('<li class="page-item"><a class="page-link" href="index.php?page=' + (currentPage + 1) + '">Next</a> </li>');
+                    }
+                    $('.clearfix').append('</ul>')
 
                 }
             },

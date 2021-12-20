@@ -19,7 +19,9 @@ if (!$_SESSION['position']) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/tableList/css/material-icon.css">
     <link rel="stylesheet" href="vendor/awsome/css/font-awesome.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/datetimePicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="vendor/css/sweetalert2.min.css">
@@ -42,14 +44,14 @@ if (!$_SESSION['position']) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#"><i class="fa fa-home" aria-hidden="true"></i>  Trang chủ <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" id="home" href="#"><i class="fa fa-home" aria-hidden="true"></i> Nhập lỗi <span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-list" aria-hidden="true"></i>  Danh sách lỗi</a>
+                            <a class="nav-link" id="list" href="#"><i class="fa fa-list" aria-hidden="true"></i> Danh sách lỗi</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>  Biểu đồ
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i> Biểu đồ
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -68,12 +70,13 @@ if (!$_SESSION['position']) {
                     <form class="form-inline my-2 my-lg-0">
                         <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-                        <a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
+                        <a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </form>
                 </div>
             </nav>
         </div>
         <div class="content">
+
             <div class="row d-flex justify-content-center">
                 <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                     <h3>NHẬP THÔNG TIN LỖI</h3>
@@ -147,7 +150,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label>
                                     <select id="typeError" class="form-control" onblur="validate(4)">
-                                    <option selected></option>
+                                        <option selected></option>
 
                                     </select>
                                 </div>
@@ -279,7 +282,7 @@ if (!$_SESSION['position']) {
 
                     <!-- Modal body -->
                     <div class="modal-body" id="contentResult">
-                       
+
                     </div>
 
                     <!-- Modal footer -->
@@ -308,7 +311,7 @@ if (!$_SESSION['position']) {
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 
-        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> --> -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> -->
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" /> -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>-->
         <!-- <link rel="stylesheet" href="vendor/font/css/font-all.css"> -->
@@ -324,11 +327,29 @@ if (!$_SESSION['position']) {
             var idChuyen = '';
             var idTo = '';
         </script>
-        <script>
+        <script type="text/javascript">
             $(document).ready(function() {
                 var timePicker = "";
+                $('[data-toggle="tooltip"]').tooltip();
 
-
+                // Select/Deselect checkboxes
+                var checkbox = $('table tbody input[type="checkbox"]');
+                $("#selectAll").click(function() {
+                    if (this.checked) {
+                        checkbox.each(function() {
+                            this.checked = true;
+                        });
+                    } else {
+                        checkbox.each(function() {
+                            this.checked = false;
+                        });
+                    }
+                });
+                checkbox.click(function() {
+                    if (!this.checked) {
+                        $("#selectAll").prop("checked", false);
+                    }
+                });
                 $(function() {
                     $('#datetimepicker1').datetimepicker({
                         format: 'MM-DD-YYYY HH:mm:ss',
@@ -352,7 +373,7 @@ if (!$_SESSION['position']) {
                     if (shop != '') {
                         _doit.loadError(shop);
                         _doit.loadTime(shop);
-                        
+
                     }
                 })
                 $('#errorChuyen').change(function() {
@@ -387,8 +408,8 @@ if (!$_SESSION['position']) {
                 $('#save').click(function() {
 
                     let x = $('#positionDetect').val();
-                    let y =$('#typeError').val();
-                    let z=$('#amountError').val();
+                    let y = $('#typeError').val();
+                    let z = $('#amountError').val();
                     var res = $("input[type=text]").toArray().some(function(el) {
                         return $(el).css("border-color") === "rgb(255, 0, 0)"
                     });
@@ -396,7 +417,7 @@ if (!$_SESSION['position']) {
                         return $(el).css("border-color") === "rgb(255, 0, 0)"
                     });
                     // `border-color` === `rgb(255, 0, 0)` , `border-color`:`"red"`
-                    if (res || res2||x==""||y==""||z=="") {
+                    if (res || res2 || x == "" || y == "" || z == "") {
                         alert('Vui lòng nhập đủ thông tin trước khi lưu!');
                     } else {
                         _doit.saveimg();
@@ -407,8 +428,8 @@ if (!$_SESSION['position']) {
 
                 })
                 $('#typeError').change(function() {
-                    let id=$('#typeError').val();
-                    if(id!="") idErrorGlobal=id;                    // idErrorGlobal = $(this).val();
+                    let id = $('#typeError').val();
+                    if (id != "") idErrorGlobal = id; // idErrorGlobal = $(this).val();
                     // console.log(idErrorGlobal);
                 })
                 // $('#errorShop').click(function() {
@@ -421,6 +442,18 @@ if (!$_SESSION['position']) {
                 $('#errorTo').click(function() {
                     idTo = $(this).val();
                 })
+                $('#navbarSupportedContent li').click(function(e) {
+
+                    $('#navbarSupportedContent ').find('.sr-only').removeClass();
+                    $('#navbarSupportedContent').find('.active').removeClass();
+                    $(this).parent('li').addClass('active');
+
+
+                })
+                $('#list').click(function() {
+                    window.location.href = 'loadlist.php';
+                })
+
                 _doit.changeDes();
             })
         </script>

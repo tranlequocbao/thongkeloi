@@ -1,5 +1,6 @@
 <?php
 include '../vendor/connect.php';
+session_start();
 $data=[];
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -9,7 +10,7 @@ $dataId=$_POST['id'];
 
 $id=$dataId[0];
 $seq=$dataId[1];
-
+$userSubmit=$_SESSION['position'];
 $vincode=$data['vincode'];
 $type=$data['bodyType']; $time=$data['time'];$nameShop=getnameShop($data);$nameXuong=getnameChuyen($data);$nameTo=getnameTo($data);
 $positionDetect=$data['positionDetect'];$amountError=$data['amountError'];$nameError=getnameError(($data));
@@ -22,20 +23,20 @@ $dataInser=[$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDete
 $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level];
 if(strlen($id)>18){
     try{
-        $insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $insert="INSERT INTO QC_INFOMATION_PROBLEMS(ID,VIN_CODE,MODEL,DATETIME,SHOP,SECTION,STATION,POSITION,AMOUNT_ERROR,TYPE_ERROR,DESC_ERROR,IMG,RESPON,DETECT_TIME,PRODUCT_TIME,LOT,M4M,CAUSE,SOLUTED,NOTE,SEQ,KINDMAN,Report,CONTRACT_NO,IMG2,LEVEL,USER_SUBMIT)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
              
-             $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-             $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level);
+            //  $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+            //  $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level);
         
              $insertReview=$connServer->prepare($insert);
             //  $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
             //  $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
-            $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-            $timeProduct,$lot,$inf4M);
+            // $params=array($id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
+            // $timeProduct,$lot,$inf4M);
              $insertReview->execute([$id,$vincode,$type, $time,$nameShop,$nameXuong,$nameTo,$positionDetect,$amountError,$nameError,$description,$path1,$human,$timeError,
-              $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level]);
-             echo json_encode(['code'=>200,'result'=>$params]); return;
+              $timeProduct,$lot,$inf4M,$reason,$solution,$note,$seq,$nameTinhhuong,$report,$contractNo,$path2,$level,$userSubmit]);
+             echo json_encode(['code'=>200]); return;
     }
     catch(Exception $e)
     {

@@ -282,7 +282,7 @@ function doit() {
 
 
         };
-        console.log(objData);
+
         $.ajax({
             url: 'be/saveData.php',
             type: 'post',
@@ -326,7 +326,11 @@ function doit() {
             title: content,
             showConfirmButton: false,
             timer: 1500
+        }).then((result) => {
+            if (status == 'success')
+                location.reload();
         })
+
     }
     this.changeDes = () => {
         $.ajax({
@@ -337,13 +341,14 @@ function doit() {
             success: function(result) {
                 //console.log(result);
                 var data = {};
-                data = result.typeError;
+
 
                 // for (let i = 0; i < result.desc.length; i++) {
                 //     data = result.des[i];
                 // }
                 //console.log(data);
                 if (result.code == 200) {
+                    data = result.typeError;
                     $("#description").autocomplete({
                         source: data
                     });
@@ -351,6 +356,53 @@ function doit() {
             },
             error: function(error) {
                 console.log(error.responseText);
+            }
+        })
+    }
+    this.loadListError = (userSubmit) => {
+        $.ajax({
+            url: 'be/loadListError.php',
+            type: 'post',
+            data: {
+                userSubmit: userSubmit,
+                currentPage: 1,
+            },
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                console.log(result);
+                let html = '';
+                let pagination = '';
+                let list = result.list
+                let totalPage = result.totalPage;
+                let currentPage = result.currentPage;
+                if (result.code == 200) {
+                    for (let i = 0; i < list.length; i++) {
+                        html += `
+                        <tr>
+                            <td>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="` + list[i]['ID'] + `" name="options[]" value="1">
+                                    <label for="checkbox1"></label>
+                                </span>
+                            </td>
+                            <td>` + list[i]['VIN_CODE'] + `</td>
+                            <td>` + list[i]['MODEL'] + `</td>
+                            <td>` + list[i]['TYPE_ERROR'] + `</td>
+                            <td>` + list[i]['DATETIME'] + `</td>
+                            <td>
+                                <a href="#editEmployeeModal" value='` + list[i]['ID'] + `' class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteEmployeeModal" value='` + list[i]['ID'] + `' class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            </td>
+                    </tr>`;
+                    }
+                    $('#listData').append(html);
+
+
+                }
+            },
+            error: function(error) {
+                console.log(error);
             }
         })
     }

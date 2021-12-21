@@ -12,20 +12,28 @@ function doit() {
             },
             dataType: "json",
             success: function(result) {
-                console.log(result);
+                //console.log(result);
                 if (result.code == 200) {
-                    let loadList = result.loadList;
-
+                    let loadList = result.listLoad;
+                    // console.log(loadList);
                     let time = result.time;
                     let shop_ = result.shop;
                     let inf4M = result.if4M;
+                    let postionID = result.position;
                     let tinhhuong = result.tinhhuong;
                     let level = result.level;
+
                     if (loadEdit == "") {
                         $('#contractNo').val(result.contractNo);
                         $('#lot').val(result.lot);
                         $('#bodyType').val(result.bodyType);
                         $('#vincode').val(result.vincode);
+                    } else {
+                        $('#vincode').val(loadList['VIN_CODE']);
+                        $('#contractNo').val(loadList['CONTRACT_NO']);
+                        $('#lot').val(loadList['LOT']);
+                        $('#bodyType').val(loadList['MODEL']);
+
                     }
 
                     if (loadEdit == "") {
@@ -34,29 +42,50 @@ function doit() {
                         $('#inf4M option').remove();
                         $('#tinhhuong option').remove();
                         $('#levelError option').remove();
+                        $('#positionDetect option').remove();
+
                     } else {
-                        $('#timeError').append('<option>' + loadList['DETECT_TIME'] + '</option>');
-                        $('#timeProduct').append('<option>' + loadList['PRODUCT_TIME'] + '</option>');
+
+                        $('#timeError').append('<option selected>' + loadList['DETECT_TIME'] + '</option>');
+                        $('#timeProduct').append('<option selected>' + loadList['PRODUCT_TIME'] + '</option>');
+                        $('#errorShop').append("<option value=" + loadList[0]['IDShop'] + " selected>" + loadList['SHOP'] + "</option>");
+                        $('#positionDetect').append('<option value=' + loadList[6]['IDPosition'] + ' selected> ' + loadList['POSITION'] + '</option>');
+                        $('#errorChuyen').append('<option value=' + loadList[1]['IDSection'] + ' selected> ' + loadList['SECTION'] + '</option>');
+                        $('#errorTo').append('<option value=' + loadList[2]['IDStation'] + ' selected> ' + loadList['STATION'] + '</option>');
+                        $('#inf4M').append('<option selected value=' + loadList[3]['ID'] + '>' + loadList['M4M'] + '</option>');
+                        $('#human').val(loadList['RESPON']);
+                        $('#amountError').val(loadList['AMOUNT_ERROR']);
+                        $('#typeError').append('<option selected value=value=' + loadList[7]['IDError'] + '>' + loadList['TYPE_ERROR'] + '</option>');
+                        $('#levelError').append('<option selected value=' + loadList[5]['ID'] + '>' + loadList['LEVEL'] + '</option>');
+                        $('#tinhhuong').append('<option selected value=' + loadList[4]['ID'] + '>' + loadList['KINDMAN'] + '</option>');
+                        $('#description').val(loadList['DESC_ERROR']);
+                        $('#reason').val(loadList['CAUSE']);
+                        $('#solution').val(loadList['SOLUTED']);
+                        $('#note').val(loadList['NOTE']);
+
+                        // sefl.loadTime($('errorShop').val(), '');
+
                     }
 
                     $('#timeError').append('<option></option>');
+                    $('#timeProduct').append('<option></option>');
                     for (let i = 0; i < time.length; i++) {
                         $('#timeError').append('<option>' + time[i] + '</option>');
                         $('#timeProduct').append('<option>' + time[i] + '</option>');
 
                     }
 
-                    $('#errorShop').append('<option value="" selected></option>');
-                    $('#positionDetect option').remove();
-                    $('#positionDetect').append('<option selected></option>');
+                    $('#errorShop').append('<option value=""></option>');
+
+                    $('#positionDetect').append('<option ></option>');
                     for (let i = 0; i < shop_.length; i++) {
 
                         $('#errorShop').append("<option value=" + shop_[i]['IDShop'] + ">" + shop_[i]['Shop_name'] + "</option>");
-                        $('#positionDetect').append("<option>" + shop_[i]['Shop_name'] + "</option>");
+                        $('#positionDetect').append("<option value=" + postionID[i]['IDPosition'] + ">" + shop_[i]['Shop_name'] + "</option>");
                     }
 
 
-                    $('#inf4M').append('<option detected value=""></option>');
+                    $('#inf4M').append('<option value=""></option>');
                     for (let i = 0; i < inf4M.length; i++) {
 
                         $('#inf4M').append("<option value=" + inf4M[i]['ID'] + ">" + inf4M[i]['NAME'] + "</option>");
@@ -110,23 +139,28 @@ function doit() {
 
                     let chuyen_ = result.xuong;
                     let to_ = result.to;
-
+                    console.log(result);
 
                     if (shop != "" && xuong == "") {
                         if (loadEdit == "") {
                             $('#errorChuyen option').remove();
                             $('#errorTo option').remove();
+                            $('#errorChuyen').append('<option value=""> </option>');
+                            for (let i = 0; i < chuyen_.length; i++) {
+                                $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
+                            }
+                        } else {
+                            $('#errorChuyen').append('<option value=""> </option>');
+                            for (let i = 0; i < chuyen_.length; i++) {
+                                $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
+                            }
                         }
 
-                        $('#errorChuyen').append('<option detected value=""> </option>');
-                        for (let i = 0; i < chuyen_.length; i++) {
-                            $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
-                        }
 
                     }
                     if (shop != "" && xuong != "") {
 
-                        $('#errorTo').append('<option detected value=""> </option>')
+                        $('#errorTo').append('<option value=""> </option>')
                         for (let i = 0; i < to_.length; i++) {
                             $('#errorTo').append('<option value=' + to_[i]['IDStation'] + '>' + to_[i]['Station_name'] + '</option>')
                         }

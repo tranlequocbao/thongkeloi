@@ -12,6 +12,99 @@ if($id!=""){
     if($rowCount>0){
         $listLoad=$row[0];
     }
+    $nameShop=$listLoad['SHOP']; $nameChuyen=$listLoad['SECTION'];$nameTo=$listLoad['STATION'];$name4M=$listLoad['M4M'];
+    $nameTinhhuong=$listLoad['KINDMAN'];  $nameLevel=$listLoad['LEVEL']; $nameError=$listLoad['TYPE_ERROR'];$idShop=[];$namePosition=$listLoad['POSITION'];
+    
+    /////////0//////////////
+    $sql="SELECT IDShop FROM QC_INFORMATION_SHOP WHERE Shop_name=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($nameShop));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+        $idShop[]=$row[0];
+        // echo json_encode(['code'=>$row[0]]); return;
+       array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['IDShop'=>""]);
+
+
+    /////////1//////////////
+    $sql="SELECT IDSection FROM QC_INFORMATION_SECTION WHERE Section_name=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($nameChuyen));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+       array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['IDSection'=>""]);
+   
+
+
+    /////////2//////////////
+    $sql="SELECT IDStation FROM QC_INFORMATION_STATION WHERE Station_name=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($nameTo));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+      array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['IDStation'=>""]);
+
+
+    /////////3//////////////
+    $sql="SELECT [ID] FROM QC_INFORMATION_4M WHERE [NAME]=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($name4M));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+      array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['ID'=>""]);
+
+
+
+    /////////4//////////////
+    $sql="SELECT [ID] FROM QC_INFORMATION_MANDF WHERE [NAME]=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($nameTinhhuong));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+      array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['ID'=>""]);
+
+
+    /////////5//////////////
+    $sql="SELECT [ID] FROM QC_INFORMATION_LEVEL WHERE [LEVEL]=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($nameLevel));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+      array_push($listLoad,$row[0]);
+      return;
+    } else  array_push($listLoad,['ID'=>""]);
+   
+/////////6//////////////
+    $sql="SELECT [IDPosition] FROM QC_INFORMATION_POSITION WHERE [Position_name]=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($namePosition));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+      array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['IDPosition'=>""]);
+
+
+    /////////7//////////////
+    $sql="SELECT [IDError] FROM QC_INFORMATION_ERROR WHERE [Error_name]=?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($nameError));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+      array_push($listLoad,$row[0]);
+    } else  array_push($listLoad,['IDError'=>""]);
 }
 
 
@@ -82,5 +175,13 @@ if ($vinCode == ""){
         $level = $row;
        
     }
-    echo json_encode(['code' => 200, 'lot' => $lot, 'contractNo' => $contractNo, 'bodyType' => $bodyType, 'vincode' => $vincode_, 'time' => $time, 'shop' => $shop,'if4M'=>$inf4M,'tinhhuong'=>$tinhuong,'typeError'=>$typeError,'idError'=>$idError,'level'=>$level,'listLoad'=>$listLoad]);
+
+    $position = '';
+    $sql_level = "SELECT *  FROM QC_INFORMATION_POSITION";
+    $result = $connServer->query($sql_level);
+    if ($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
+        $position = $row;
+       
+    }
+    echo json_encode(['code' => 200, 'lot' => $lot, 'contractNo' => $contractNo, 'bodyType' => $bodyType, 'vincode' => $vincode_, 'time' => $time, 'shop' => $shop,'if4M'=>$inf4M,'tinhhuong'=>$tinhuong,'typeError'=>$typeError,'idError'=>$idError,'level'=>$level,'position'=>$position,'listLoad'=>$listLoad,'idShopaa'=>$idShop]);
     return;

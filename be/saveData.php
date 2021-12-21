@@ -13,7 +13,7 @@ $seq=$dataId[1];
 $userSubmit=$_SESSION['position'];
 $vincode=$data['vincode'];
 $type=$data['bodyType']; $time=$data['time'];$nameShop=getnameShop($data);$nameXuong=getnameChuyen($data);$nameTo=getnameTo($data);
-$positionDetect=$data['positionDetect'];$amountError=$data['amountError'];$nameError=getnameError(($data));
+$positionDetect=getnamePosition($data);$amountError=$data['amountError'];$nameError=getnameError(($data));
 $description=$data['description'];$path1=$data['img1'];$human=$data['human'];$timeError=$data['timeError'];
 $timeProduct=$data['timeProduct'];$lot=$data['lot'];$inf4M=inf4M($data);$reason=$data['reason'];$solution=$data['solution'];
 $note=$data['note'];$seq;$nameTinhhuong=getnameTinhhuong($data);$contractNo=$data['contractNo'];
@@ -142,6 +142,21 @@ function getnameTo($data){
     if($rowCount>0){
         foreach($row as $value){
             $Error_name=$value['Station_name'];
+        }
+    }
+    return $Error_name;
+}
+function getnamePosition($data){
+    global $connServer;
+    $Error_name='';
+    $sql = "SELECT * FROM QC_INFORMATION_STATION WHERE IDStation= ?";
+    $result=$connServer->prepare($sql);
+    $result->execute(array($data['positionDetect']));
+    $row=$result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=count($row);
+    if($rowCount>0){
+        foreach($row as $value){
+            $Error_name=$value['IDPosition'];
         }
     }
     return $Error_name;

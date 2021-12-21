@@ -102,13 +102,13 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Thời gian Lỗi</label>
                                     <select id="timeError" class="form-control">
-                                        <option selected></option>
+                                       
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Thời gian sản xuất</label>
                                     <select id="timeProduct" class="form-control">
-                                        <option selected></option>
+                                        
 
                                     </select>
                                 </div>
@@ -116,13 +116,13 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Xưởng chịu trách nhiệm</label>
                                     <select id="errorShop" class="form-control">
-                                        <option selected></option>
+                                        
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Chuyền chịu trách nhiệm</label>
                                     <select id="errorChuyen" class="form-control">
-                                        <option selected></option>
+                                       
 
                                     </select>
                                 </div>
@@ -130,7 +130,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tổ chịu trách nhiệm</label>
                                     <select id="errorTo" class="form-control">
-                                        <option selected></option>
+                                       
 
                                     </select>
                                 </div>
@@ -139,7 +139,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nơi phát hiện<span class="text-danger"> *</span></label>
                                     <select id="positionDetect" class="form-control" onblur="validate(2)">
-                                        <option selected style="height: 100%;"></option>
+                                       
 
                                     </select>
                                 </div>
@@ -150,7 +150,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label>
                                     <select id="typeError" class="form-control" onblur="validate(4)">
-                                        <option selected></option>
+                                        
 
                                     </select>
                                 </div>
@@ -159,13 +159,13 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M</label>
                                     <select id="inf4M" class="form-control">
-                                        <option selected></option>
+                                        
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Cấp độ lỗi</label>
                                     <select id="levelError" class="form-control">
-                                        <option selected></option>
+                                       
 
                                     </select>
                                 </div>
@@ -173,7 +173,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi</label>
                                     <select id="tinhhuong" class="form-control">
-                                        <option selected></option>
+                                        
 
                                     </select>
                                 </div>
@@ -336,9 +336,7 @@ if (!$_SESSION['position']) {
 
                 // Select/Deselect checkboxes
                 var checkbox = $('table tbody input[type="checkbox"]');
-                if(loadEdit!=''){
-                    _doit.loadVincode("",loadEdit);
-                }
+                
                 $("#selectAll").click(function() {
                     if (this.checked) {
                         checkbox.each(function() {
@@ -368,8 +366,13 @@ if (!$_SESSION['position']) {
                     let vincode = ""
                     $('#idError').empty();
                     vincode = $('#vincode').val();
+                    if(vincode!='')
                     _doit.loadVincode(vincode,"");
                 })
+                if(loadEdit!=''){
+                    console.log('s');
+                    _doit.loadVincode("",loadEdit);
+                }
                 $('#vincode').bind('enterKey', function() {
                     $('#errorShop').focus();
                 });
@@ -467,8 +470,8 @@ if (!$_SESSION['position']) {
                 _doit.changeDes();
 
                 //luôn để cuối, destroy $_GET
-                window.localStorage.setItem('id','');
-                loadEdit=0;
+                // window.localStorage.setItem('id','');
+                // loadEdit=0;
                     
          
                 

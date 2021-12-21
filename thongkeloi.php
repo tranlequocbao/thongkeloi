@@ -326,14 +326,19 @@ if (!$_SESSION['position']) {
             var idShop = '';
             var idChuyen = '';
             var idTo = '';
+            var loadEdit='';
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
+                loadEdit=window.localStorage.getItem('id');
                 var timePicker = "";
                 $('[data-toggle="tooltip"]').tooltip();
 
                 // Select/Deselect checkboxes
                 var checkbox = $('table tbody input[type="checkbox"]');
+                if(loadEdit!=''){
+                    _doit.loadVincode("",loadEdit);
+                }
                 $("#selectAll").click(function() {
                     if (this.checked) {
                         checkbox.each(function() {
@@ -357,11 +362,13 @@ if (!$_SESSION['position']) {
                     });
                 });
                 _doit.loadTime();
+                if(loadEdit=="")
                 $('#vincode').focus();
                 $('#vincode').blur(function() {
                     let vincode = ""
+                    $('#idError').empty();
                     vincode = $('#vincode').val();
-                    _doit.loadVincode(vincode);
+                    _doit.loadVincode(vincode,"");
                 })
                 $('#vincode').bind('enterKey', function() {
                     $('#errorShop').focus();
@@ -451,10 +458,20 @@ if (!$_SESSION['position']) {
 
                 })
                 $('#list').click(function() {
-                    window.location.href = 'loadlist.php';
+                    window.location.href = 'loadlist.php?page=1';
                 })
+                $('#home').click(function() {
+						window.location.href = 'thongkeloi.php';
+					})
 
                 _doit.changeDes();
+
+                //luôn để cuối, destroy $_GET
+                window.localStorage.setItem('id','');
+                loadEdit=0;
+                    
+         
+                
             })
         </script>
 </body>

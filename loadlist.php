@@ -82,7 +82,7 @@ if (!$_SESSION['position']) {
 					<div class="table-wrapper">
 						<div class="table-title">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-12">
 									<h2>Danh sách <b>Lỗi</b></h2>
 								</div>
 								<!-- <div class="col-sm-6">
@@ -100,6 +100,7 @@ if (!$_SESSION['position']) {
 											<label for="selectAll"></label>
 										</span>
 									</th>
+									<th>ID</th>
 									<th>Số VIN</th>
 									<th>Loại Body</th>
 									<th>Loại lỗi</th>
@@ -132,18 +133,18 @@ if (!$_SESSION['position']) {
 		<div id="deleteEmployeeModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form>
+					<form onsubmit="event.preventDefault()">
 						<div class="modal-header">
-							<h4 class="modal-title">Delete Employee</h4>
+							<h4 class="modal-title">Xoá</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<p>Are you sure you want to delete these Records?</p>
-							<p class="text-warning"><small>This action cannot be undone.</small></p>
+							<p id="contentQuestion"></p>
+							<p class="text-warning"><small>Hành động này không thể hoàn tác.</small></p>
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-							<input type="submit" class="btn btn-danger" value="Delete">
+							<input type="submit" id="deleteData" class="btn btn-danger" value="Delete">
 						</div>
 					</form>
 				</div>
@@ -177,6 +178,9 @@ if (!$_SESSION['position']) {
 
 		<script>
 			var userSubmit='<?=$_SESSION['position'];?>';
+			var page='<?=isset($_GET['page']) ?$_GET['page']:1;?>';
+			
+			var id="";
 		</script>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -206,8 +210,36 @@ if (!$_SESSION['position']) {
 					$('#home').click(function() {
 						window.location.href = 'thongkeloi.php';
 					})
+					// $('a .delete').click(function(){
+					// 	alert('aaa');
+					// 	console.log($(this).parent('a').val());
+					// 	$('#contentQuestion').empty();
+					// 	$('#contentQuestion').children('span').text("Bạn có muốn xoá dữ liệu số VIN: "+$(this).val()+"");
+					// })
+					$('body').on("click",".delete",function(){
+						
+						id= $(this)[0].firstChild.id;
+						console.log($(this)[0].firstChild.id);
+						$("#contentQuestion").empty();
+						$("#contentQuestion").append("Bạn có muốn xoá ID: "+id+" ?")
+						
+						//data-toggle="modal"
+					})
+					$('body').on("click",".edit",function(){
+						
+						id= $(this)[0].firstChild.id;
+						console.log($(this)[0].firstChild.id);
+						window.localStorage.setItem('id',id);
+						window.location.href='thongkeloi.php';
+						
+						//data-toggle="modal"
+					})
+					
+					$('#deleteData').click(function(){
+						_doit.deleteData(id);
+					})
 
-					_doit.loadListError(userSubmit);
+					_doit.loadListError(userSubmit,page);
 				});
 			})
 		</script>

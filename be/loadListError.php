@@ -2,11 +2,11 @@
 include '../vendor/connect.php';
 
 $total=$currentPage=$limit=$start=$totalPage='';
-$limit=10;
-$currentPage=$_POST['currentPage'];
+$limit=$_GET['limit'];
+$currentPage=$_GET['currentPage'];
 
 try{
-    $user=$_POST['userSubmit'];
+    $user=$_GET['userSubmit'];
     $list='';
 
 $sqlTotal="SELECT ID FROM QC_INFOMATION_PROBLEMS WHERE USER_SUBMIT=? " ;

@@ -1,6 +1,6 @@
 function doit() {
     var sefl = this;
-    this.loadVincode = (vincode) => {
+    this.loadVincode = (vincode, id) => {
         let vinCode = vincode;
         let returnResult = true;
         $.ajax({
@@ -8,33 +8,44 @@ function doit() {
             url: "./be/getInfoVin.php",
             data: {
                 vincode: vinCode,
-
+                id: id
             },
             dataType: "json",
             success: function(result) {
                 console.log(result);
                 if (result.code == 200) {
-
+                    let loadList = result.loadList;
 
                     let time = result.time;
                     let shop_ = result.shop;
                     let inf4M = result.if4M;
                     let tinhhuong = result.tinhhuong;
                     let level = result.level;
+                    if (loadEdit == "") {
+                        $('#contractNo').val(result.contractNo);
+                        $('#lot').val(result.lot);
+                        $('#bodyType').val(result.bodyType);
+                        $('#vincode').val(result.vincode);
+                    }
 
-                    $('#contractNo').val(result.contractNo);
-                    $('#lot').val(result.lot);
-                    $('#bodyType').val(result.bodyType);
-                    $('#vincode').val(result.vincode);
+                    if (loadEdit == "") {
+                        $('#timeError option').remove();
+                        $('#errorShop option').remove();
+                        $('#inf4M option').remove();
+                        $('#tinhhuong option').remove();
+                        $('#levelError option').remove();
+                    } else {
+                        $('#timeError').append('<option>' + loadList['DETECT_TIME'] + '</option>');
+                        $('#timeProduct').append('<option>' + loadList['PRODUCT_TIME'] + '</option>');
+                    }
 
-                    $('#timeError option').remove();
                     $('#timeError').append('<option></option>');
                     for (let i = 0; i < time.length; i++) {
                         $('#timeError').append('<option>' + time[i] + '</option>');
                         $('#timeProduct').append('<option>' + time[i] + '</option>');
 
                     }
-                    $('#errorShop option').remove();
+
                     $('#errorShop').append('<option value="" selected></option>');
                     $('#positionDetect option').remove();
                     $('#positionDetect').append('<option selected></option>');
@@ -44,20 +55,20 @@ function doit() {
                         $('#positionDetect').append("<option>" + shop_[i]['Shop_name'] + "</option>");
                     }
 
-                    $('#inf4M option').remove();
+
                     $('#inf4M').append('<option detected value=""></option>');
                     for (let i = 0; i < inf4M.length; i++) {
 
                         $('#inf4M').append("<option value=" + inf4M[i]['ID'] + ">" + inf4M[i]['NAME'] + "</option>");
                     }
-                    $('#tinhhuong option').remove();
+
                     $('#tinhhuong').append('<option value=""></option>');
                     for (let i = 0; i < tinhhuong.length; i++) {
 
                         $('#tinhhuong').append("<option value=" + tinhhuong[i]['ID'] + ">" + tinhhuong[i]['NAME'] + "</option>");
                     }
 
-                    $('#levelError option').remove();
+
                     $('#levelError').append('<option value=""></option>');
                     for (let i = 0; i < level.length; i++) {
 
@@ -102,7 +113,11 @@ function doit() {
 
 
                     if (shop != "" && xuong == "") {
-                        $('#errorChuyen option').remove();
+                        if (loadEdit == "") {
+                            $('#errorChuyen option').remove();
+                            $('#errorTo option').remove();
+                        }
+
                         $('#errorChuyen').append('<option detected value=""> </option>');
                         for (let i = 0; i < chuyen_.length; i++) {
                             $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
@@ -110,7 +125,7 @@ function doit() {
 
                     }
                     if (shop != "" && xuong != "") {
-                        $('#errorTo option').remove();
+
                         $('#errorTo').append('<option detected value=""> </option>')
                         for (let i = 0; i < to_.length; i++) {
                             $('#errorTo').append('<option value=' + to_[i]['IDStation'] + '>' + to_[i]['Station_name'] + '</option>')
@@ -359,13 +374,14 @@ function doit() {
             }
         })
     }
-    this.loadListError = (userSubmit) => {
+    this.loadListError = (userSubmit, page) => {
         $.ajax({
             url: 'be/loadListError.php',
-            type: 'post',
+            type: 'get',
             data: {
                 userSubmit: userSubmit,
-                currentPage: 1,
+                currentPage: page,
+                limit: 20,
             },
             dataType: 'json',
             cache: false,
@@ -387,13 +403,14 @@ function doit() {
                                     <label for="checkbox1"></label>
                                 </span>
                             </td>
+                            <td>` + list[i]['ID'] + `</td>
                             <td>` + list[i]['VIN_CODE'] + `</td>
                             <td>` + list[i]['MODEL'] + `</td>
                             <td>` + list[i]['TYPE_ERROR'] + `</td>
                             <td>` + list[i]['DATETIME'] + `</td>
                             <td>
-                                <a href="#editEmployeeModal" value='` + list[i]['ID'] + `' class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" value='` + list[i]['ID'] + `' class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#editEmployeeModal" value='` + list[i]['ID'] + `' class="edit" data-toggle="modal"><i class="material-icons"  id="` + list[i]['ID'] + `" data-toggle="tooltip"  title="Edit">&#xE254;</i></a>
+                                <a href="#deleteEmployeeModal" value='` + list[i]['ID'] + `' class="delete" data-toggle="modal"><i class="material-icons"  id="` + list[i]['ID'] + `" title="Delete">&#xE872;</i></a>
                             </td>
                     </tr>`;
                     }
@@ -403,23 +420,25 @@ function doit() {
 
                     // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                     if (currentPage > 1 && totalPage > 1) {
-                        $('.pagination').append('<li class="page-item disabled"><a class="page-link" href="index.php?page=' + (currentPage - 1) + '">Prev</a></li>')
+                        $('.pagination').append('<li class="page-item"><a class="page-link" id="prevPage" href="loadlist.php?page=' + (currentPage - 1) + '">Prev</a></li>')
 
                     }
                     for (let j = 1; j <= totalPage; j++) {
                         // Nếu là trang hiện tại thì hiển thị thẻ span
                         // ngược lại hiển thị thẻ a
                         if (j == currentPage) {
-                            $('.pagination').append('<li class="page-item"><a class="page-link" href="index.php?page=' + (currentPage - 1) + '">Prev</a></li>');
+                            $('.pagination').append('<li class="page-item active"><a class="page-link" href="loadlist.php?page=' + j + '">' + j + '</a></li>');
                         } else {
 
-                            $('.pagination').append('<li class="page-item"><a href="index.php?page=' + j + '">' + j + '</a></li>');
+                            $('.pagination').append('<li class="page-item"><a href="loadlist.php?page=' + j + '">' + j + '</a></li>');
                         }
                     }
                     // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
                     if (currentPage < totalPage && totalPage > 1) {
+                        currentPage = parseInt(currentPage) + 1;
+                        console.log(currentPage);
 
-                        $('.pagination').append('<li class="page-item"><a class="page-link" href="index.php?page=' + (currentPage + 1) + '">Next</a> </li>');
+                        $('.pagination').append('<li class="page-item"><a class="page-link" id="nextPage" href="loadlist.php?page=' + currentPage + '">Next</a></li>');
                     }
                     $('.clearfix').append('</ul>')
 
@@ -430,5 +449,29 @@ function doit() {
             }
         })
     }
+    this.deleteData = (id) => {
+        $('#deleteEmployeeModal').modal('toggle')
+        $.ajax({
+            url: 'be/deleteData.php',
+            data: { id: id },
+            type: 'post',
+            dataType: 'json',
+            cache: false,
+            success: function(result) {
+                if (result.code == 200) {
+                    sefl.showMesss("Đã xoá thành công", "success");
+                } else {
+                    sefl.showMesss("Không xoá được dữ liệu", "error");
+                }
+            },
+            error: function(error) {
+                sefl.showMesss("Lỗi trong quá trình xoá dữ liệu" + error, "error");
+            },
+            complete: function(params) {
+                window.reload();
+            }
+        })
+    }
+
 }
 var _doit = new doit();

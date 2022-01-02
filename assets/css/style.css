@@ -347,3 +347,57 @@ table.table .avatar {
 .modal form label {
     font-weight: normal;
 }
+
+
+/* LOADING BUTTON SAVE */
+
+#save {
+    transition: all ease 0.5s;
+}
+
+.active_load {
+    display: inline;
+    font-size: 0 !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    border-left-color: transparent !important;
+    animation: rotate 1.4s ease 0.5s infinite;
+    background-color: transparent !important;
+    text-align: center !important;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(360deg);
+    }
+}
+
+.success {
+    position: relative !important;
+    background-color: #fff !important;
+    animation: bounce .3s ease-in;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(0.9);
+    }
+}
+
+.success:before {
+    content: '';
+    position: absolute !important;
+    background: url('../css/font/check-solid.svg') no-repeat;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 31px;
+    height: 31px;
+    line-height: 31px;
+    top: 8px;
+}
+.table-responsive {
+
+    box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);
+}

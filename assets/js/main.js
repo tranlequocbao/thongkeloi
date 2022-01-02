@@ -1,4 +1,4 @@
-function doit() {
+﻿function doit() {
     var sefl = this;
     this.loadVincode = (vincode, id) => {
         let vinCode = vincode;
@@ -8,18 +8,24 @@ function doit() {
             url: "./be/getInfoVin.php",
             data: {
                 vincode: vinCode,
-                id: id
+                id: id,
+                user: user
             },
             dataType: "json",
+            cache: false,
             success: function(result) {
-                //console.log(result);
+                console.log(result);
+
                 if (result.code == 200) {
                     let loadList = result.listLoad;
+                    console.log(loadList);
                     // console.log(loadList);
                     let time = result.time;
                     let shop_ = result.shop;
                     let inf4M = result.if4M;
                     let postionID = result.position;
+
+
                     let tinhhuong = result.tinhhuong;
                     let level = result.level;
 
@@ -29,6 +35,8 @@ function doit() {
                         $('#bodyType').val(result.bodyType);
                         $('#vincode').val(result.vincode);
                     } else {
+                        $('#idError').empty();
+                        $('#idError').append(loadList['ID']);
                         $('#vincode').val(loadList['VIN_CODE']);
                         $('#contractNo').val(loadList['CONTRACT_NO']);
                         $('#lot').val(loadList['LOT']);
@@ -38,6 +46,7 @@ function doit() {
 
                     if (loadEdit == "") {
                         $('#timeError option').remove();
+                        $('#timeProduct option').remove();
                         $('#errorShop option').remove();
                         $('#inf4M option').remove();
                         $('#tinhhuong option').remove();
@@ -48,22 +57,55 @@ function doit() {
 
                         $('#timeError').append('<option selected>' + loadList['DETECT_TIME'] + '</option>');
                         $('#timeProduct').append('<option selected>' + loadList['PRODUCT_TIME'] + '</option>');
-                        $('#errorShop').append("<option value=" + loadList[0]['IDShop'] + " selected>" + loadList['SHOP'] + "</option>");
-                        $('#positionDetect').append('<option value=' + loadList[6]['IDPosition'] + ' selected> ' + loadList['POSITION'] + '</option>');
-                        $('#errorChuyen').append('<option value=' + loadList[1]['IDSection'] + ' selected> ' + loadList['SECTION'] + '</option>');
-                        $('#errorTo').append('<option value=' + loadList[2]['IDStation'] + ' selected> ' + loadList['STATION'] + '</option>');
-                        $('#inf4M').append('<option selected value=' + loadList[3]['ID'] + '>' + loadList['M4M'] + '</option>');
+                        $('#errorShop').append("<option value='" + loadList['SHOP'] + "' selected>" + loadList[0]['Shop_name'] + "</option>");
+                        $('#positionDetect').append('<option value="' + loadList['POSITION'] + '" selected> ' + loadList[6]['Position_name'] + '</option>');
+                        $('#errorChuyen').append('<option value="' + loadList['SECTION'] + '" selected> ' + loadList[1]['Section_name'] + '</option>');
+                        $('#errorTo').append('<option value="' + loadList['STATION'] + '" selected> ' + loadList[2]['Station_name'] + '</option>');
+                        $('#inf4M').append('<option selected value="' + loadList['M4M'] + '">' + loadList[3]['NAME'] + '</option>');
                         $('#human').val(loadList['RESPON']);
                         $('#amountError').val(loadList['AMOUNT_ERROR']);
-                        $('#typeError').append('<option selected value=value=' + loadList[7]['IDError'] + '>' + loadList['TYPE_ERROR'] + '</option>');
-                        $('#levelError').append('<option selected value=' + loadList[5]['ID'] + '>' + loadList['LEVEL'] + '</option>');
-                        $('#tinhhuong').append('<option selected value=' + loadList[4]['ID'] + '>' + loadList['KINDMAN'] + '</option>');
+                        $('#typeError').append('<option selected value="' + loadList['TYPE_ERROR'] + '">' + loadList[7]['Error_name'] + '</option>');
+                        $('#levelError').append('<option selected value="' + loadList['LEVEL'] + '">' + loadList[5]['NAME'] + '</option>');
+                        $('#tinhhuong').append('<option selected value="' + loadList['KINDMAN'] + '">' + loadList[4]['NAME'] + '</option>');
                         $('#description').val(loadList['DESC_ERROR']);
                         $('#reason').val(loadList['CAUSE']);
                         $('#solution').val(loadList['SOLUTED']);
                         $('#note').val(loadList['NOTE']);
+                        seq = loadList['SEQ'];
+                        if (loadList['IMG'] != '') {
 
-                        // sefl.loadTime($('errorShop').val(), '');
+                            var imgSource = loadList['IMG'];
+                            pathPic1 = imgSource;
+                            var arrIMG = imgSource.split('/');
+                            var srcIMG = '';
+                            if (arrIMG[0] == '..') {
+                                for (let i = 1; i < arrIMG.length; i++) {
+                                    if (i == 1) srcIMG = arrIMG[i];
+                                    else
+                                        srcIMG = srcIMG + '/' + arrIMG[i];
+                                }
+                            }
+
+                            $('#pic1').append('<img id="blah" class="rounded" src="' + srcIMG + '?version=' + Math.floor((Math.random() * 10000000) + 1) + '" alt="your image" style="width: 100%;"/>');
+                        }
+                        if (loadList['IMG2'] != '') {
+                            var imgSource1 = loadList['IMG2'];
+                            pathPic2 = imgSource1;
+                            var arrIMG1 = imgSource1.split('/');
+                            var srcIMG1 = '';
+                            if (arrIMG1[0] == '..') {
+                                for (let i = 1; i < arrIMG1.length; i++) {
+                                    if (i == 1) srcIMG1 = arrIMG1[i];
+                                    else
+                                        srcIMG1 = srcIMG1 + '/' + arrIMG1[i];
+                                }
+                            }
+                            $('#pic2').append('<img id="blah1" class="rounded" src="' + srcIMG1 + '?version=' + Math.floor((Math.random() * 10000000) + 1) + '" alt="your image" style="width: 100%;"/>');
+                        }
+
+
+                        sefl.loadTime($('#errorShop').val(), $('#errorTo').val());
+                        sefl.loadError($('#errorShop').val());
 
                     }
 
@@ -77,11 +119,18 @@ function doit() {
 
                     $('#errorShop').append('<option value=""></option>');
 
-                    $('#positionDetect').append('<option ></option>');
+
                     for (let i = 0; i < shop_.length; i++) {
 
                         $('#errorShop').append("<option value=" + shop_[i]['IDShop'] + ">" + shop_[i]['Shop_name'] + "</option>");
-                        $('#positionDetect').append("<option value=" + postionID[i]['IDPosition'] + ">" + shop_[i]['Shop_name'] + "</option>");
+
+                    }
+
+                    $('#positionDetect').append('<option ></option>');
+                    for (let i = 0; i < postionID.length; i++) {
+
+
+                        $('#positionDetect').append("<option value=" + postionID[i]['IDPosition'] + ">" + postionID[i]['Position_name'] + "</option>");
                     }
 
 
@@ -98,7 +147,7 @@ function doit() {
                     }
 
 
-                    $('#levelError').append('<option value=""></option>');
+                    $('#levelError').append('<option selected value="0">0</option>');
                     for (let i = 0; i < level.length; i++) {
 
                         $('#levelError').append("<option value=" + level[i]['ID'] + ">" + level[i]['LEVEL'] + "</option>");
@@ -110,9 +159,17 @@ function doit() {
 
                     //     $('#typeError').append("<option value='" + idError[i] + "'>" + typeError[i] + "</option>");
                     // }
-                } else if (result.code == 201)
+                } else if (result.code == 201) {
+
                     alert("Lỗi lấy thông tin số VIN");
-                else if (result.code == 202) alert("Số VIN không đủ. Vui lòng nhập 8 kí tự cuối");
+
+                    $('#vincode').focus();
+                } else if (result.code == 202) {
+                    alert("Số VIN không đủ. Vui lòng nhập 8 kí tự cuối");
+
+                    $('#vincode').focus();
+
+                }
             },
             error: function(error) {
                 console.log(error.responseText);
@@ -139,33 +196,43 @@ function doit() {
 
                     let chuyen_ = result.xuong;
                     let to_ = result.to;
-                    console.log(result);
 
-                    if (shop != "" && xuong == "") {
-                        if (loadEdit == "") {
+
+                    if (loadEdit != "") {
+                        $('#errorChuyen').append('<option value=""> </option>');
+
+                        for (let i = 0; i < chuyen_.length; i++) {
+                            $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
+                        }
+                        $('#errorTo').append('<option value=""> </option>');
+                        for (let i = 0; i < to_.length; i++) {
+                            $('#errorTo').append('<option value=' + to_[i]['IDStation'] + '>' + to_[i]['Station_name'] + '</option>')
+                        }
+                    } else {
+                        if (shop != "" && xuong == "") {
+
+
                             $('#errorChuyen option').remove();
                             $('#errorTo option').remove();
                             $('#errorChuyen').append('<option value=""> </option>');
                             for (let i = 0; i < chuyen_.length; i++) {
                                 $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
                             }
-                        } else {
+
+
+
+                        }
+                        if (shop != "" && xuong != "") {
+                            $('#errorTo option').remove();
                             $('#errorChuyen').append('<option value=""> </option>');
-                            for (let i = 0; i < chuyen_.length; i++) {
-                                $('#errorChuyen').append('<option value=' + chuyen_[i]['IDSection'] + '>' + chuyen_[i]['Section_name'] + '</option>');
+                            $('#errorTo').append('<option value=""> </option>')
+                            for (let i = 0; i < to_.length; i++) {
+                                $('#errorTo').append('<option value=' + to_[i]['IDStation'] + '>' + to_[i]['Station_name'] + '</option>')
                             }
                         }
-
-
                     }
-                    if (shop != "" && xuong != "") {
 
-                        $('#errorTo').append('<option value=""> </option>')
-                        for (let i = 0; i < to_.length; i++) {
-                            $('#errorTo').append('<option value=' + to_[i]['IDStation'] + '>' + to_[i]['Station_name'] + '</option>')
-                        }
 
-                    }
                 }
 
             },
@@ -228,6 +295,8 @@ function doit() {
         })
     }
     this.rename = (path1, path2) => {
+        let typeError = $('#typeError').val();
+        let idLoad = $('#idError').text();
         $.ajax({
             url: 'be/renameImg.php',
             dataType: 'json',
@@ -235,16 +304,18 @@ function doit() {
             data: {
                 pic1: path1,
                 pic2: path2,
-
-                typeError: idErrorGlobal,
+                idLoad: idLoad,
+                typeError: typeError,
             },
             type: 'post',
             success: function(result) {
                 console.log(result.id);
                 if (result.code == 200) {
-                    pathPic1 = result.pic1;
-                    pathPic2 = result.pic2;
-                    sefl.savedata(idErrorGlobal, idShop, result.id);
+                    if (pathPic1 == '')
+                        pathPic1 = result.pic1;
+                    if (pathPic2 == '')
+                        pathPic2 = result.pic2;
+                    sefl.savedata(typeError, idShop, result.id);
 
                 }
 
@@ -262,10 +333,11 @@ function doit() {
             dataType: 'json',
             cache: false,
             success: function(result) {
-                console.log(result);
+
                 if (result.code == 200) {
                     let typeError = result.typeError;
-                    $('#typeError option').remove();
+
+                    if (loadEdit == "") $('#typeError option').remove();
                     $('#typeError').append('<option value=""></option>');
                     for (let i = 0; i < typeError.length; i++) {
 
@@ -275,7 +347,12 @@ function doit() {
             },
             error: function(error) {
                 console.log(error.responseText);
+            },
+            complete: function(params) {
+                loadEdit = '';
+                window.localStorage.setItem('id', '');
             }
+
 
         })
     }
@@ -293,7 +370,7 @@ function doit() {
         let errorTo = $('#errorTo').val();
         let human = $('#human').val();
         let positionDetect = $('#positionDetect').val();
-        let typeError = idErrorGlobal;
+        let typeError = $('#typeError').val();
         let inf4M = $('#inf4M').val();
         let tinhhuong = $('#tinhhuong').val();
         let description = $('#description').val();
@@ -304,6 +381,7 @@ function doit() {
         let solution = $('#solution').val();
         let id_ = dataId;
         let level = $('#levelError').val();
+        let idError = $('#idError').text();
         let objData = {
             vincode: vincode,
             lot: lot,
@@ -327,8 +405,8 @@ function doit() {
             img1: pathPic1,
             img2: pathPic2,
             solution: solution,
-            level: level
-
+            level: level,
+            seq: seq,
 
         };
 
@@ -340,15 +418,27 @@ function doit() {
             data: {
                 allData: objData,
                 id: id_,
+                idErrorLoad: idError,
             },
             success: function(result) {
-                console.log(result.code);
+                console.log(result);
                 if (result.code == 200) {
                     //alert('aaa');
                     // $('#contentResult').empty();
                     // $('#contentResult').append('Lưu thành công dữ liệu!', 'success');
                     // $('#messResult').modal('toggle');
-                    sefl.showMesss("Lưu thành công dữ liệu!", 'success')
+
+                    setTimeout(() => {
+                        $('#save').addClass('success');
+                    }, 1000);
+
+
+
+                    setTimeout(function() {
+
+                        sefl.showMesss("Lưu thành công dữ liệu!", 'success')
+                    }, 2000)
+
                 } else if (result.code == 201) {
                     // $('#contentResult').empty();
                     // $('#contentResult').append('LƯU THẤT BẠI!' + result.error, 'error');
@@ -376,8 +466,13 @@ function doit() {
             showConfirmButton: false,
             timer: 1500
         }).then((result) => {
-            if (status == 'success')
+            if (status == 'success') {
+                pathPic2 = '';
+                pathPic1 = '';
+                seq = '';
                 location.reload();
+            }
+
         })
 
     }
@@ -492,17 +587,20 @@ function doit() {
             dataType: 'json',
             cache: false,
             success: function(result) {
+
                 if (result.code == 200) {
                     sefl.showMesss("Đã xoá thành công", "success");
                 } else {
                     sefl.showMesss("Không xoá được dữ liệu", "error");
+
                 }
             },
             error: function(error) {
+                console.log(error.responseText);
                 sefl.showMesss("Lỗi trong quá trình xoá dữ liệu" + error, "error");
             },
             complete: function(params) {
-                window.reload();
+
             }
         })
     }

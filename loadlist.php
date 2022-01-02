@@ -44,7 +44,7 @@ if (!$_SESSION['position']) {
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item ">
-							<a class="nav-link" id="home" href="#"><i class="fa fa-home" aria-hidden="true"></i> Nhập lỗi </a>
+							<a class="nav-link" id="home" href="#"><i class="fa fa-tasks" aria-hidden="true"></i> Nhập lỗi </a>
 						</li>
 						<li class="nav-item active">
 							<a class="nav-link" id="list" href="#"><i class="fa fa-list" aria-hidden="true"></i> Danh sách lỗi<span class="sr-only"></span></a>
@@ -68,9 +68,16 @@ if (!$_SESSION['position']) {
                         </li> -->
 					</ul>
 					<form class="form-inline my-2 my-lg-0">
-						<!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-						<a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					
+					</form>
+					<form class="form-inline my-2 my-lg-0">
+					
+					
+						<label> <i class="fa fa-user-circle" aria-hidden="true" style="margin-right: 5px;"></i> <?=$_SESSION['position']?></label>
+						<label><a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out my-2 my-sm-0" aria-hidden="true"></i> Logout</a></label>
+					
 					</form>
 				</div>
 			</nav>
@@ -109,8 +116,8 @@ if (!$_SESSION['position']) {
 								</tr>
 							</thead>
 							<tbody id="listData">
-								
-								
+
+
 							</tbody>
 						</table>
 						<div class="clearfix">
@@ -129,7 +136,31 @@ if (!$_SESSION['position']) {
 				</div>
 			</div>
 		</div>
+		<div class="container">
 
+
+			<!-- Small modal -->
+			<div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+							<h4>Đăng xuất <i class="fa fa-lock"></i></h4>
+						</div>
+						<div class="modal-body">
+							<p><i class="fa fa-question-circle"></i>Bạn có muốn đăng xuất? <br /></p>
+							<div class="actionsBtns">
+								<form action="/logout" method="post">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+									<input type="submit" id='logout' name='logout' class="btn btn-default btn-primary" data-dismiss="modal" value="Đăng xuất" />
+									<button class="btn btn-default" data-dismiss="modal">Huỷ bỏ</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div id="deleteEmployeeModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -151,98 +182,103 @@ if (!$_SESSION['position']) {
 			</div>
 		</div>
 	</div>
-		<script type="text/javascript" src="assets/js/main.js"></script>
-		<script type="text/javascript" src="assets/js/form.js"></script>
+	<script type="text/javascript" src="assets/js/main.js"></script>
+	<script type="text/javascript" src="assets/js/form.js"></script>
 
-		<script src="vendor/jquery/jquery-3.6.js"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-
-
-		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-		<script type="text/javascript" src="vendor/js/moment.min.js"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-		<script type="text/javascript" src="vendor/bootstrap/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-		<!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<script src="vendor/jquery/jquery-3.6.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
 
-		<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> -->
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" /> -->
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>-->
-		<!-- <link rel="stylesheet" href="vendor/font/css/font-all.css"> -->
-		<script type="text/javascript" src="vendor/jquery/query-ui.js"></script>
-		<script type="text/javascript" src="vendor/js/sweetalert2.all.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="vendor/js/moment.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+	<script type="text/javascript" src="vendor/bootstrap/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 
-		<script>
-			var userSubmit='<?=$_SESSION['position'];?>';
-			var page='<?=isset($_GET['page']) ?$_GET['page']:1;?>';
-			
-			var id="";
-		</script>
-		<script type="text/javascript">
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" /> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>-->
+	<!-- <link rel="stylesheet" href="vendor/font/css/font-all.css"> -->
+	<script type="text/javascript" src="vendor/jquery/query-ui.js"></script>
+	<script type="text/javascript" src="vendor/js/sweetalert2.all.min.js"></script>
+
+
+	<script>
+		var userSubmit = '<?= $_SESSION['position']; ?>';
+		var page = '<?= isset($_GET['page']) ? $_GET['page'] : 1; ?>';
+
+		var id = "";
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
 			$(document).ready(function() {
-				$(document).ready(function() {
-					// Activate tooltip
-					$('[data-toggle="tooltip"]').tooltip();
+				// Activate tooltip
+				$('[data-toggle="tooltip"]').tooltip();
 
-					// Select/Deselect checkboxes
-					var checkbox = $('table tbody input[type="checkbox"]');
-					$("#selectAll").click(function() {
-						if (this.checked) {
-							checkbox.each(function() {
-								this.checked = true;
-							});
-						} else {
-							checkbox.each(function() {
-								this.checked = false;
-							});
-						}
-					});
-					checkbox.click(function() {
-						if (!this.checked) {
-							$("#selectAll").prop("checked", false);
-						}
-					});
-					
-					$('#home').click(function() {
-						window.location.href = 'thongkeloi.php';
-					})
-					// $('a .delete').click(function(){
-					// 	alert('aaa');
-					// 	console.log($(this).parent('a').val());
-					// 	$('#contentQuestion').empty();
-					// 	$('#contentQuestion').children('span').text("Bạn có muốn xoá dữ liệu số VIN: "+$(this).val()+"");
-					// })
-					$('body').on("click",".delete",function(){
-						
-						id= $(this)[0].firstChild.id;
-						console.log($(this)[0].firstChild.id);
-						$("#contentQuestion").empty();
-						$("#contentQuestion").append("Bạn có muốn xoá ID: "+id+" ?")
-						
-						//data-toggle="modal"
-					})
-					$('body').on("click",".edit",function(){
-						
-						id= $(this)[0].firstChild.id;
-						console.log($(this)[0].firstChild.id);
-						window.localStorage.setItem('id',id);
-						window.location.href='thongkeloi.php';
-						
-						//data-toggle="modal"
-					})
-					
-					$('#deleteData').click(function(){
-						_doit.deleteData(id);
-					})
-
-					_doit.loadListError(userSubmit,page);
+				// Select/Deselect checkboxes
+				var checkbox = $('table tbody input[type="checkbox"]');
+				$("#selectAll").click(function() {
+					if (this.checked) {
+						checkbox.each(function() {
+							this.checked = true;
+						});
+					} else {
+						checkbox.each(function() {
+							this.checked = false;
+						});
+					}
 				});
-			})
-		</script>
+				checkbox.click(function() {
+					if (!this.checked) {
+						$("#selectAll").prop("checked", false);
+					}
+				});
+
+				$('#home').click(function() {
+					window.location.href = 'thongkeloi.php';
+				})
+				// $('a .delete').click(function(){
+				// 	alert('aaa');
+				// 	console.log($(this).parent('a').val());
+				// 	$('#contentQuestion').empty();
+				// 	$('#contentQuestion').children('span').text("Bạn có muốn xoá dữ liệu số VIN: "+$(this).val()+"");
+				// })
+				$('body').on("click", ".delete", function() {
+
+					id = $(this)[0].firstChild.id;
+					console.log($(this)[0].firstChild.id);
+					$("#contentQuestion").empty();
+					$("#contentQuestion").append("Bạn có muốn xoá ID: " + id + " ?")
+
+					//data-toggle="modal"
+				})
+				$('body').on("click", ".edit", function() {
+
+					id = $(this)[0].firstChild.id;
+					console.log($(this)[0].firstChild.id);
+					window.localStorage.setItem('id', id);
+					window.location.href = 'thongkeloi.php';
+
+					//data-toggle="modal"
+				})
+
+				$('#deleteData').click(function() {
+
+					_doit.deleteData(id);
+
+				})
+				$('#logout').click(function() {
+
+					window.location.href = 'index.html';
+				})
+				_doit.loadListError(userSubmit, page);
+			});
+		})
+	</script>
 </body>
 
 

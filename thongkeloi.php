@@ -44,7 +44,7 @@ if (!$_SESSION['position']) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" id="home" href="#"><i class="fa fa-home" aria-hidden="true"></i> Nhập lỗi <span class="sr-only"></span></a>
+                            <a class="nav-link" id="home" href="#"><i class="fa fa-tasks" aria-hidden="true"></i> Nhập lỗi <span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="list" href="#"><i class="fa fa-list" aria-hidden="true"></i> Danh sách lỗi</a>
@@ -70,7 +70,8 @@ if (!$_SESSION['position']) {
                     <form class="form-inline my-2 my-lg-0">
                         <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-                        <a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                        <label><i class="fa fa-user-circle" aria-hidden="true" style="margin-right: 5px;"></i> <?= $_SESSION['position'] ?></label>
+                        <label><a href="#" class="nav-link" data-toggle="modal" data-target="#logoutModal"><i class="fa fa-sign-out my-2 my-sm-0" aria-hidden="true"></i> Logout</a></label>
                     </form>
                 </div>
             </nav>
@@ -82,7 +83,7 @@ if (!$_SESSION['position']) {
                     <h3>NHẬP THÔNG TIN LỖI</h3>
                     <!-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> -->
                     <div class="card" style="width: 100%;">
-                        <h5 class="text-center mb-4" id="idError">Số ID</h5>
+                        <h5 class="text-center mb-4" id="idError"></h5>
                         <form class="form-card" onsubmit="event.preventDefault()">
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Vin Code<span class="text-danger"> *</span></label> <input type="text" id="vincode" name="fname" placeholder="Nhập mã số VIN" onblur="validate(1)"> </div>
@@ -102,13 +103,13 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Thời gian Lỗi</label>
                                     <select id="timeError" class="form-control">
-                                       
+
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Thời gian sản xuất</label>
                                     <select id="timeProduct" class="form-control">
-                                        
+
 
                                     </select>
                                 </div>
@@ -116,13 +117,13 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Xưởng chịu trách nhiệm</label>
                                     <select id="errorShop" class="form-control">
-                                        
+
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Chuyền chịu trách nhiệm</label>
                                     <select id="errorChuyen" class="form-control">
-                                       
+
 
                                     </select>
                                 </div>
@@ -130,7 +131,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tổ chịu trách nhiệm</label>
                                     <select id="errorTo" class="form-control">
-                                       
+
 
                                     </select>
                                 </div>
@@ -139,7 +140,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nơi phát hiện<span class="text-danger"> *</span></label>
                                     <select id="positionDetect" class="form-control" onblur="validate(2)">
-                                       
+
 
                                     </select>
                                 </div>
@@ -150,7 +151,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Loại lỗi<span class="text-danger"> *</span></label>
                                     <select id="typeError" class="form-control" onblur="validate(4)">
-                                        
+
 
                                     </select>
                                 </div>
@@ -159,13 +160,13 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">4M</label>
                                     <select id="inf4M" class="form-control">
-                                        
+
 
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Cấp độ lỗi</label>
                                     <select id="levelError" class="form-control">
-                                       
+
 
                                     </select>
                                 </div>
@@ -173,7 +174,7 @@ if (!$_SESSION['position']) {
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Tình huống xảy ra lỗi</label>
                                     <select id="tinhhuong" class="form-control">
-                                        
+
 
                                     </select>
                                 </div>
@@ -216,13 +217,14 @@ if (!$_SESSION['position']) {
                             </div>
 
                             <div class="row justify-content-between text-left">
-                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Ghi chú</label>
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Picture 1</label>
                                     <div class="form-group" id="pic1">
+
                                         <input type="file" id="imgInp" name='imgInp' accept="image/*" capture="camera" />
 
                                     </div>
                                 </div>
-                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Ghi chú</label>
+                                <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Picture 2</label>
                                     <div class="form-group" id="pic2">
                                         <input type="file" id="imgInp1" accept="image/*" name='cam2' capture="camera" />
 
@@ -235,7 +237,7 @@ if (!$_SESSION['position']) {
                                 </div> -->
                             </div>
                             <div class="row justify-content-center">
-                                <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary" id="save">Lưu</button> </div>
+                                <div class="form-group col-sm-6"> <button class="btn-block btn-primary" id="save">Lưu</button> </div>
                             </div>
 
 
@@ -326,60 +328,89 @@ if (!$_SESSION['position']) {
             var idShop = '';
             var idChuyen = '';
             var idTo = '';
-            var loadEdit='';
+            var loadEdit = '';
+            var seq = '';
+            var statusFocusVIN = true;
+            var user ='<?=$_SESSION['position']?>';
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
-                loadEdit=window.localStorage.getItem('id');
+                if (window.localStorage.getItem('id') !== null)
+                    loadEdit = window.localStorage.getItem('id');
+                else loadEdit = "";
                 var timePicker = "";
                 $('[data-toggle="tooltip"]').tooltip();
 
-                // Select/Deselect checkboxes
-                var checkbox = $('table tbody input[type="checkbox"]');
-                
-                $("#selectAll").click(function() {
-                    if (this.checked) {
-                        checkbox.each(function() {
-                            this.checked = true;
-                        });
-                    } else {
-                        checkbox.each(function() {
-                            this.checked = false;
-                        });
+                $(document).on('keypress', function(e) {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                        $('#datetimepicker1').focus();
                     }
                 });
-                checkbox.click(function() {
-                    if (!this.checked) {
-                        $("#selectAll").prop("checked", false);
+                var gettime = setInterval(function() {
+                    if ($('#lot').val() == '') {
+                        var d = new Date();
+
+                        var month = d.getMonth() + 1;
+                        var day = d.getDate();
+                        var hour = d.getHours();
+                        var min = d.getMinutes();
+                        var sec = d.getSeconds();
+
+                        var output = (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day + '-' + d.getFullYear() + ' ' +
+                            (hour < 10 ? '0' : '') + hour + ':' + (min < 10 ? '0' : '') + min + ':' + (sec < 10 ? '0' : '') + sec;
+
+
+                        $('#datetimepicker1').val(output);
                     }
-                });
+
+
+                }, 1000);
+
+               
                 $(function() {
                     $('#datetimepicker1').datetimepicker({
                         format: 'MM-DD-YYYY HH:mm:ss',
                         defaultDate: new Date(),
                     });
                 });
-                _doit.loadTime();
-                if(loadEdit=="")
-                $('#vincode').focus();
-                $('#vincode').blur(function() {
-                    let vincode = ""
+                if (loadEdit != '') {
+                    console.log(loadEdit);
+                    let id = $('#typeError').val();
+                    if (id != "") idErrorGlobal = id;
+                    _doit.loadVincode("", loadEdit);
+                }
+                if (loadEdit == "") {
+                    $('#vincode').focus();
+
+                }
+
+                $('#vincode').on('change', function() {
+                    $('#idError').empty();
+                })
+                $('#vincode').change(function() {
+
+                    let vincode = "";
                     $('#idError').empty();
                     vincode = $('#vincode').val();
-                    if(vincode!='')
-                    _doit.loadVincode(vincode,"");
+                    if (vincode != '')
+                        _doit.loadVincode(vincode, "");
+
+
                 })
-                if(loadEdit!=''){
-                    console.log('s');
-                    _doit.loadVincode("",loadEdit);
-                }
+              
                 $('#vincode').bind('enterKey', function() {
+
                     $('#errorShop').focus();
                 });
+                // $('body').on('change','#vincode',function(){
+                //alert('aaaa');
+                //statusFocusVIN=true;
+                // })
                 $('#errorShop').change(function() {
                     let shop = "";
                     shop = $('#errorShop').val();
-
+                    console.log(shop);
                     if (shop != '') {
                         _doit.loadError(shop);
                         _doit.loadTime(shop);
@@ -388,7 +419,9 @@ if (!$_SESSION['position']) {
                 })
                 $('#errorChuyen').change(function() {
                     let shop = $('#errorShop').val();
+
                     let chuyen = $('#errorChuyen').val();
+                    console.log(shop);
                     if (chuyen != "") {
                         _doit.loadTime(shop, chuyen);
                     }
@@ -404,6 +437,8 @@ if (!$_SESSION['position']) {
                 imgInp.onchange = evt => {
                     const [file] = imgInp.files
                     if (file) {
+                        pathPic1 = '';
+                        $('#blah').remove();
                         $('#pic1').append('<img id="blah" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
                         blah.src = URL.createObjectURL(file)
                     }
@@ -411,11 +446,14 @@ if (!$_SESSION['position']) {
                 imgInp1.onchange = evt => {
                     const [file] = imgInp1.files
                     if (file) {
+                        pathPic2 = '';
+                        $('#blah1').remove();
                         $('#pic2').append('  <img id="blah1" class="rounded" src="#" alt="your image" style="width: 100%;"/>');
                         blah1.src = URL.createObjectURL(file)
                     }
                 }
                 $('#save').click(function() {
+
 
                     let x = $('#positionDetect').val();
                     let y = $('#typeError').val();
@@ -430,6 +468,7 @@ if (!$_SESSION['position']) {
                     if (res || res2 || x == "" || y == "" || z == "") {
                         alert('Vui lòng nhập đủ thông tin trước khi lưu!');
                     } else {
+                        $(this).addClass('active_load');
                         _doit.saveimg();
                     };
                     //_doit.showMesss("lỗi","error");
@@ -464,17 +503,17 @@ if (!$_SESSION['position']) {
                     window.location.href = 'loadlist.php?page=1';
                 })
                 $('#home').click(function() {
-						window.location.href = 'thongkeloi.php';
-					})
+                    window.location.href = 'thongkeloi.php';
+                })
 
                 _doit.changeDes();
 
                 //luôn để cuối, destroy $_GET
                 // window.localStorage.setItem('id','');
                 // loadEdit=0;
-                    
-         
-                
+
+
+
             })
         </script>
 </body>

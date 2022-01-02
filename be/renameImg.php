@@ -21,8 +21,19 @@ function getID($typeError){
 $typeError = $_POST['typeError'];
 $pic = $_POST['pic1'];
 $pic2 = $_POST['pic2'];
-$idData = getID($typeError);
-$id=$idData[0];
+$idLoad=$_POST['idLoad'];
+$id= $idData='';
+if($idLoad!=''){
+    $id=$idLoad;
+   
+}
+else{
+    $idData = getID($typeError);
+
+
+    $id=$idData[0];
+}
+
 
 $allValue1=$allValue2=$lastValue1=$lastValue12=$arryFile1=$arryFile2="";
 $newName1 = $newName2 = "";
